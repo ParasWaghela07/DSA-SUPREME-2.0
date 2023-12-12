@@ -19,11 +19,10 @@ Node* InsertNode(){
     int x;
     cin>>x;
 
-    Node* root=new Node(x);
-
     if(x==-1){
-        return root;
+        return NULL;
     }
+        Node* root=new Node(x);
         cout<<"Enter the left value for :"<<root->data<<endl;
         root->left=InsertNode();
         cout<<"Enter the right value for :"<<root->data<<endl;
@@ -31,41 +30,41 @@ Node* InsertNode(){
     
 }
 
-void kthAncestor(Node* root,Node* key,int &k,bool &flag, Node* &ans){
-
-    if(root==NULL) return ;
-
-    if(root==key){
-        flag=true;
-        return;
+Node* kthAncestor(Node* root,Node* key,int &k,int &ans){
+    if(root==NULL){
+        return NULL;
     }
 
-    if(flag==true){
-        k--;
-        return;
+    if(ans!=-1){
+        return root;
     }
 
-    kthAncestor(root->left,key,k,flag,ans);
-    if(flag==true){
-        k--;
-        return;
+    if(root->data==key->data){
+        return root;
     }
+
+    Node* leftAns=kthAncestor(root->left,key,k,ans);
+    Node* rightAns=kthAncestor(root->right,key,k,ans);
+
+    if(leftAns==NULL && rightAns==NULL){
+        return NULL;
+    }
+
+    k--;
     if(k==0){
-        ans=root;
-    }
-    kthAncestor(root->right,key,k,flag,ans);
-    if(flag==true){
-        k--;
-        return;
-    }
-    if(k==0){
-        ans=root;
+        ans=root->data;
+        return root;
     }
 
-    if(k==0){
-        ans=root;
+    if(leftAns!=NULL && rightAns==NULL){
+        return leftAns;
     }
-    
+    else if(leftAns==NULL && rightAns!=NULL){
+        return rightAns;
+    }
+    else{
+        return root;
+    }
 }
 
 int main(){
@@ -81,14 +80,9 @@ int main(){
 
     Node* key=new Node(x);
 
-    bool flag=false;
-    Node* ans=new Node(NULL);
-    kthAncestor(root,key,k,flag,ans);
+    int ans=-1;
+    kthAncestor(root,key,k,ans);
 
-    cout<<ans->data<<endl;
-
-
-    
-    
+    cout<<ans<<endl;
 
 }
