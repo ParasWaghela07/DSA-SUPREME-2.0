@@ -72,11 +72,9 @@ void top_view(Node* root){
         Node* Value=front.first;
         int Vlevel=front.second;
 
-        // if(hdToNode.find(Vlevel)==hdToNode.end()){ //checking for current Vertical level's entry is present or not , true=not present, false=present
-        // hdToNode[Vlevel]=Value->data;
-        // }
-
+        if(hdToNode.find(Vlevel)==hdToNode.end()){ //checking for current Vertical level's entry is present or not , true=not present, false=present
         hdToNode[Vlevel]=Value->data;
+        }
 
         if(Value->left!=NULL){
             q.push(make_pair(Value->left,Vlevel-1));
