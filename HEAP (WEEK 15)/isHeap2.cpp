@@ -107,7 +107,7 @@ int main(){
     }
     else{
         cout<<"It is not a Heap"<<endl;
-        cout<<"EXPECTED MAX/ROOT VALUE : "<<ans.maxVal<<endl;
+        cout<<"MAX/ROOT VALUE : "<<ans.maxVal<<endl;
     }
 
 
