@@ -1,5 +1,5 @@
 #include <iostream>
-#include<queue>
+#include <queue>
 using namespace std;
 
 class Node
@@ -17,26 +17,30 @@ public:
     }
 };
 
-void InsertinBst(Node* &root,int data){
-    //1st element che !
-    if(root==NULL){
-        root=new Node(data);
+void InsertinBst(Node *&root, int data)
+{
+    // 1st element che !
+    if (root == NULL)
+    {
+        root = new Node(data);
         return;
     }
-    else{
-        if(data > root->data){
-            InsertinBst(root->right,data);
+    else
+    {
+        if (data > root->data)
+        {
+            InsertinBst(root->right, data);
         }
-        else{
-            InsertinBst(root->left,data);
+        else
+        {
+            InsertinBst(root->left, data);
         }
     }
 }
 
-
-void createBst(Node* &root)
+void createBst(Node *&root)
 {
-    cout << "Enter Data : "<<endl;
+    cout << "Enter Data : " << endl;
     int x;
     cin >> x;
 
@@ -47,85 +51,90 @@ void createBst(Node* &root)
     }
 }
 
-void BFStraversal(Node* root){
-    queue<Node*>q;
+void BFStraversal(Node *root)
+{
+    queue<Node *> q;
     q.push(root);
     q.push(NULL);
 
-    while(!q.empty()){
-        Node* front=q.front();
+    while (!q.empty())
+    {
+        Node *front = q.front();
         q.pop();
 
-        if(front==NULL){
-            cout<<endl;
-            if(!q.empty()){
+        if (front == NULL)
+        {
+            cout << endl;
+            if (!q.empty())
+            {
                 q.push(NULL);
             }
         }
-        else{
-            cout<<front->data<<" ";
+        else
+        {
+            cout << front->data << " ";
 
-            if(front->left!=NULL){
+            if (front->left != NULL)
+            {
                 q.push(front->left);
             }
-            if(front->right!=NULL){
+            if (front->right != NULL)
+            {
                 q.push(front->right);
             }
         }
     }
 }
 
-void storeInorder(Node* root,vector<int>&in){
-    if(root==NULL){
+void storeInorder(Node *root, vector<int> &in)
+{
+    if (root == NULL)
+    {
         return;
     }
 
-    storeInorder(root->left,in);
+    storeInorder(root->left, in);
     in.push_back(root->data);
-    storeInorder(root->right,in);
-
+    storeInorder(root->right, in);
 }
 
-void ReplaceUsingPostOrder(Node* root,vector<int>in,int &index){
-if(root==NULL){
-    return;
-}
-ReplaceUsingPostOrder(root->left,in,index);
-ReplaceUsingPostOrder(root->right,in,index);
-root->data=in[index];
-index++;
-}
-
-void convertBstToHeap(Node* root){
-    if(root==NULL){
+void ReplaceUsingPostOrder(Node *root, vector<int> in, int &index)
+{
+    if (root == NULL)
+    {
         return;
     }
-    vector<int>ino;
-    storeInorder(root,ino);
-    int index=0;
-
-    ReplaceUsingPostOrder(root,ino,index);
-
+    ReplaceUsingPostOrder(root->left, in, index);
+    ReplaceUsingPostOrder(root->right, in, index);
+    root->data = in[index];
+    index++;
 }
 
+void convertBstToHeap(Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    vector<int> ino;
+    storeInorder(root, ino);
+    int index = 0;
+
+    ReplaceUsingPostOrder(root, ino, index);
+}
 
 int main()
 {
-    Node* root = NULL;
+    Node *root = NULL;
     createBst(root);
 
-    cout<<endl<<"Old BST : "<<endl;
+    cout << endl
+         << "Old BST : " << endl;
     BFStraversal(root);
 
     convertBstToHeap(root);
 
-    cout<<endl<<"New Max Heap : "<<endl;
+    cout << endl
+         << "New Max Heap : " << endl;
     BFStraversal(root);
-
-
-
-    
-
-    
-		
-	}
+}
