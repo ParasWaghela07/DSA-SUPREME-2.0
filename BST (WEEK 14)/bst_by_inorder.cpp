@@ -1,4 +1,4 @@
-#include<iostream>
+#include<bits/stdc++.h>
 #include<queue>
 
 using namespace std;
@@ -103,7 +103,8 @@ int main(){
     // Node* root=NULL;
     // createBst(root);
 
-    int inorder[]={10,20,30,40,50,60};
+    int inorder[]={8,5,1,7,10,12};
+    sort(inorder,inorder+6);
 
     Node* root=bstbyinorder(inorder,0,5);
 
