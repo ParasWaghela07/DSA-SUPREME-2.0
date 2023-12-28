@@ -163,7 +163,7 @@ void Inorder3(Node* root,Node* &prev){
     Inorder3(root->right,prev);
 }
 
-Node* flattenLL(Node* &root){
+Node* flattenLL(Node* root){
     Node* dummy=new Node(-1);
     Node* prev=dummy;
 
