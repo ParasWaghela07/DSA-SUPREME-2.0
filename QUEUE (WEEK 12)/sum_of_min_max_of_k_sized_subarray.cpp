@@ -1,5 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
+
+////////OWN SOLUTION
 void ksizedWindowMaxMin(int arr[],vector<int>&maxi,vector<int>&mini,int n,int k){ //COMBINED MAX/MIN
     queue<int>q1,q2;
     q1.push(0);
@@ -112,11 +114,60 @@ void ksizedWindowMin(int arr[],vector<int>&mini,int n,int k){
     }
 }
 
+///////////////LAKSHAY BHAIYA'S SOLUTION
+int maxminSlidingWindow(vector<int> nums, int k) {
+        deque<int>dq,dq2;
+        int ans=0;
+        
+        //processing 1st k elements
+        for(int i=0;i<k;i++){
+            while(!dq.empty() && nums[dq.back()]<=nums[i]){
+                dq.pop_back();
+            }
+            while(!dq2.empty() && nums[dq2.back()]>=nums[i]){
+                dq2.pop_back();
+            }
+            dq.push_back(i);
+            dq2.push_back(i);
+        }
+
+        ans+=nums[dq.front()]+nums[dq2.front()];
+
+        //remaining elements
+        for(int i=k;i<nums.size();i++){
+            
+            //removal
+            if(!dq.empty() && i-dq.front()>=k){
+                dq.pop_front();
+            }
+            if(!dq2.empty() && i-dq2.front()>=k){
+                dq2.pop_front();
+            }
+            //addition
+            while(!dq.empty() && nums[dq.back()]<=nums[i]){
+                dq.pop_back();
+            }
+            
+            while(!dq2.empty() && nums[dq2.back()]>=nums[i]){
+                dq2.pop_back();
+            }
+            dq.push_back(i);
+            dq2.push_back(i);
+            ans+=nums[dq.front()]+nums[dq2.front()];
+        }
+
+        
+
+        return ans;
+    }
+
 int main(){
     int arr[]={2,5,-1,7,-3,-1,-2};
     int n=7;
     int k=4;
-    vector<int>maxi,mini;
+
+
+    // vector<int>maxi,mini;
 
     // ksizedWindowMax(arr,maxi,n,k);
     // for(int i=0;i<maxi.size();i++){ //  EITHER THIS OR
@@ -128,11 +179,24 @@ int main(){
     //     cout<<mini[i]<<" ";
     // }
     // cout<<endl;
-    ksizedWindowMaxMin(arr,maxi,mini,n,k);
-    int sum=0;
-    for(int i=0;i<maxi.size();i++){
-        sum+= maxi[i] + mini[i];
-    }
 
-    cout<<sum<<endl;
+
+
+
+
+
+    // ksizedWindowMaxMin(arr,maxi,mini,n,k);
+    // int sum=0;
+    // for(int i=0;i<maxi.size();i++){
+    //     sum+= maxi[i] + mini[i];
+    // }
+
+    // cout<<sum<<endl;
+
+    vector<int>nums{2,5,-1,7,-3,-1,-2};
+    cout<<maxminSlidingWindow(nums,k)<<endl;
+
+
+
+
 }
