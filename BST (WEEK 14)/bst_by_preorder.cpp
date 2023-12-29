@@ -22,6 +22,7 @@ public:
             root->left=new TreeNode(data);
             return;
         }
+        
         if(root->val > data)
         insert(root->left,data);
         else
