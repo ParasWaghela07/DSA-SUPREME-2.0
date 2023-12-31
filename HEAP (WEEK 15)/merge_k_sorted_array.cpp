@@ -35,6 +35,7 @@ void mergeKsortedArrays(int arr[][4],int col,int row,vector<int>&ans){
         int topCol=topElement->col;
 
         ans.push_back(topValue);
+        cout<<topValue<<endl;
 
         if(topCol+1 < col){
             info* temp=new info(arr[topRow][topCol+1],topRow,topCol+1);
