@@ -78,7 +78,7 @@ void findLCP(TrieNode* root,string &ans){
 
 
 
-// WITHOUT TRIE
+// WITHOUT TRIE ///HEHEHEHE
 
 // string ans="";
         // string first=strs[0];
