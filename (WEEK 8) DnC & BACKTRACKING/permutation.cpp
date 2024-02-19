@@ -15,7 +15,7 @@ void prmt(string &s,int i){
 }
 
 int main(){
-    string s="abc";
+    string s="heet";
     int index=0;
     prmt(s,index);
 
