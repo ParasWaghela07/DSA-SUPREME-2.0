@@ -16,7 +16,7 @@ public:
         int destY=col-1;
         vector<vector<int>>dist(row,vector<int>(col,INT_MAX));
         dist[0][0]=0;
-        //mini.push({0,{0,0}});
+        mini.push({0,{0,0}});
 
         while(!mini.empty()){
             auto topPair=mini.top();
