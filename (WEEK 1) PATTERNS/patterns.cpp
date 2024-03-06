@@ -32,7 +32,7 @@ int main()
     // for(int i=0;i<n;i++){
     //     for(int j=0;j<n-i;j++){
     //         if(i==0 || j==0 || i==n-1 || j==n-i-1)
-    //         cout<<"*"<<" ";                                             hollow pyramid
+    //         cout<<"*"<<" ";                                             //hollow pyramid
     //         else
     //         cout<<"  ";
     //     }
@@ -72,7 +72,7 @@ int main()
     //         else
     //         cout<<" ";
     //     }
-    //                                                           Hollow Full Pyramid
+    //                                                           //Hollow Full Pyramid
     //     for (int p = 0; p < i; p++)
     //     {
     //         if(i==0 || i==n-1 || p==i-1)
@@ -87,13 +87,12 @@ int main()
 
 
 
-//     for(int i=0;i<n;i++){
-//         for(int j=0;j<=i;j++){
-//             cout<<j+1;                           //numeric half pyramid
-//         }
-//         cout<<endl;
-//     }
-// }
+    // for(int i=0;i<n;i++){
+    //     for(int j=0;j<=i;j++){
+    //         cout<<j+1;                           //numeric half pyramid
+    //     }
+    //     cout<<endl;
+    // }
 
 
 
@@ -166,8 +165,8 @@ int main()
 //         cout<<" ";
 //     }
 //     for(int j=0;j<i+1;j++){
-//         if(j==0 || j==i)
-//         cout<<"* ";                             hollow full pyra 2.0
+//         if(i==0 || i==n-1||j==0 || j==i)
+//         cout<<"* ";                             //hollow full pyra 2.0
 //         else
 //         cout<<"  ";
 //     }
@@ -209,7 +208,7 @@ int main()
 //     }
 //     cout<<endl;
 // }
-                                                  //hollow diamond
+//                                                   //hollow diamond
 // for(int i=0;i<n;i++){
 //     for(int j=0;j<i;j++){
 //         cout<<" ";
@@ -231,10 +230,10 @@ int main()
 //         cout<<" ";
 //     }
 //     for(int j=0;j<2*n-2*i-1;j++){
-//         // if(j==0 || j==(2*n-2*i-2))
+//         if(i==0 || i==n-1||j==0 || j==(2*n-2*i-2))
 //         cout<<"*";
-//         // else
-//         // cout<<" ";                             //   hollow full pyramid 1.0 by 2n-2i-1
+//         else
+//         cout<<" ";                             //   hollow full pyramid 1.0 by 2n-2i-1
 //     }
 //     cout<<endl;
 // }
@@ -277,7 +276,7 @@ int main()
 //     for(int j=0;j<2*i+1;j++){
 //         if(j%2==1)
 //         cout<<"*";
-//         else                                even places star and odd places row number
+//         else                                // odd  places star and even places row number
 //         cout<<i+1;
 //     }
     
@@ -340,7 +339,7 @@ int main()
 //         if(i==0 || i==n-1 ||j==0||j==n-i-1)
 //         cout<<"* ";
 //     else{
-//         cout<<"  ";                              inverted hollow half
+//         cout<<"  ";                              //inverted hollow half
 //     }
     
 //     }
@@ -353,15 +352,12 @@ int main()
 
 
 // for(int i=0;i<n;i++){
-//     for(int j=0;j<2*i+1;j++){
-//         if(i==0 || i==n-1)
+//     for(int j=0;j<i+1;j++){
+//         if(i==0 || i==n-1 || j==0 || j==i)
 //         cout<<j+1<<" ";
-//         else if(j==0)
-//         cout<<j+1;
-//         else if(j==2*i)                            doubt
-//         cout<<i+1;
+        
 //         else
-//         cout<<" ";
+//         cout<<"  ";       //hollow py print cols 
         
 //     }
 //     cout<<endl;                                
@@ -372,14 +368,20 @@ int main()
 
 // for(int i=0;i<n;i++){
 // char ch;
-//     for(int j=0;j<=i;j++){
-//         ch='A'+j;
-//         cout<<ch;
-//     }                                        ulta sidha combined character half pyra
-//     for(char alpha=ch;alpha>'A';){
-//         alpha--;
-//        cout<<alpha;
-//     }
+//     for(int j=0;j<2*i+1;j++){
+//         if(j<=i){
+//             ch='A'+j;
+//             cout<<ch;
+//         }
+//         else{
+//             ch=ch-1;
+//             cout<<ch;
+//         }
+//     }                                       // ulta sidha combined character half pyra
+//     // for(char alpha=ch;alpha>'A';){
+//     //     alpha--;
+//     //    cout<<alpha;
+//     // }
 //     cout<<endl;
 // }
 
