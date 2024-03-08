@@ -2,12 +2,12 @@
 using namespace std;
 
 int getBinary(int n){
-    int i=0;
+    int i=1;
     int ans=0;
     while(n>0){
         int bit=n%2;
-        ans=bit*pow(10,i) + ans;
-        i++;
+        ans=bit*i + ans;
+        i=i*10;
         n=n/2;
     }
 
@@ -16,10 +16,11 @@ int getBinary(int n){
 
 int getBinary2(int n){
     int ans=0;
-    int i=0;
+    int i=1;
     while(n>0){
         int bit=(n&1);
-        ans=bit*pow(10,i++) + ans;
+        ans=bit*i + ans;
+        i=i*10;
         n=n>>1;
     }
 
