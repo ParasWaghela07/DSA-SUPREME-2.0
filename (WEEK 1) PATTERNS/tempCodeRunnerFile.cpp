@@ -1,4 +1,3 @@
-for(char alpha=ch;alpha>'A';){
-        alpha--;
-       cout<<alpha;
-    }
+
+    if(flag==1){
+        if(pivot>0)
