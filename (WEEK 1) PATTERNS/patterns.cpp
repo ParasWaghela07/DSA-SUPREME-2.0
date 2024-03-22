@@ -1,4 +1,4 @@
-#include <iostream>
+#include<bits/stdc++.h>
 using namespace std;
 int main()
 {
@@ -450,10 +450,6 @@ int main()
 // }
 
 
-
-
-
-
 // for(int i=0;i<n;i++){
 //     for(int j=0;j<n-i;j++){
 //         cout<<" ";
@@ -586,34 +582,135 @@ int main()
 //     }
 //     cout<<endl;
 // }
-int pivot=0;
-int flag=0;
-for(int i=0;i<n;i++){
-    cout<<"|";
-    for(int j=0;j<3;j++){
-        if(j==pivot){
-            cout<<"* ";
-        }
-        else{
-            cout<<"  ";
-        }
-    }
-    if(flag==0){
-        if(pivot<2)
-        pivot++;
-        else
-        flag=1;
-    }
-    if(flag==1){
-        if(pivot>0)
-        pivot--;
-        else{
-            flag=0;
-            pivot++;
-        }
+
+
+
+// int pivot=0;
+// int flag=0;
+// for(int i=0;i<n;i++){
+//     cout<<"|";
+//     for(int j=0;j<3;j++){
+//         if(j==pivot){
+//             cout<<"* ";
+//         }
+//         else{
+//             cout<<"  ";
+//         }
+//     }
+//     if(flag==0){
+//         if(pivot<2)
+//         pivot++;
+//         else
+//         flag=1;
+//     }                                     //Star wave
+//     if(flag==1){
+//         if(pivot>0)
+//         pivot--;
+//         else{
+//             flag=0;
+//             pivot++;
+//         }
     
+//     }
+//     cout<<endl;
+// }
+
+// }
+
+
+// vector<vector<int>>v(2*n-1,vector<int>(2*n-1,0));
+
+// int top=0;
+// int bottom=v.size()-1;
+
+// int left=0;
+// int right=v[0].size()-1;
+
+// while(top<=bottom && left<=right){
+//     for(int i=top;i<=bottom;i++){
+//         v[i][left]=n;
+//     }
+
+//     for(int i=top;i<=bottom;i++){
+//         v[i][right]=n;
+//     }
+
+//     for(int i=left;i<=right;i++){
+//         v[top][i]=n;
+//     }
+
+//     for(int i=left;i<=right;i++){
+//         v[bottom][i]=n;
+//     }
+
+//     left++;
+//     right--;
+//     top++;
+//     bottom--;
+//     n--;
+
+// }
+
+// for(int i=0;i<v.size();i++){
+//     for(int j=0;j<v[0].size();j++){
+//         cout<<v[i][j]<<" ";
+//     }
+//     cout<<endl;
+// }
+
+
+
+int size=(2*n)-1;
+
+for(int i=0;i<=size/2;i++){
+
+    int num=n;
+
+    int midRange=(2*n)-(2*i)-1;
+    int startEndRange=(2*n-1)-midRange;
+
+    for(int j=0;j<startEndRange/2;j++){   //same as above without extra space
+        cout<<num<<" ";
+        num--;
     }
+
+    for(int j=0;j<midRange;j++){
+        cout<<num<<" ";
+    }
+
+    for(int j=0;j<startEndRange/2;j++){
+        num++;
+        cout<<num<<" ";
+    }
+
+    cout<<endl;
+
+    
+}
+
+int midRange=3;
+
+for(int i=(size/2)+1;i<size;i++){
+    int num=n;
+
+    int startEndRange=(2*n-1)-midRange;
+
+    for(int j=0;j<startEndRange/2;j++){
+        cout<<num<<" ";
+        num--;
+    }
+
+    for(int j=0;j<midRange;j++){
+        cout<<num<<" ";
+    }
+
+    for(int j=0;j<startEndRange/2;j++){
+        num++;
+        cout<<num<<" ";
+    }
+    midRange+=2;
     cout<<endl;
 }
 
 }
+
