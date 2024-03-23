@@ -1,14 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int findTarget(vector<int>&v,int &target){
+int findlastOcc(vector<int>&v,int &target){
     int s=0;
     int e=v.size()-1;
+    int ans=-1;
     while(s<=e){
         int mid=s+(e-s)/2;
 
         if(v[mid]==target){
-            return mid;
+            ans=mid;
+            s=mid+1;
         }
         else if(v[mid]>target){
             e=mid-1;
@@ -18,13 +20,13 @@ int findTarget(vector<int>&v,int &target){
         }
     }
 
-    return -1;
+    return ans;
 }
 
 int main(){
-    vector<int>v={1,2,3,4,5,6,7};
-    int target=10;
-    int index=findTarget(v,target);
+    vector<int>v={1,2,2,3,3,3,3};
+    int target=3;
+    int index=findlastOcc(v,target);
     
 
     if(index==-1){
