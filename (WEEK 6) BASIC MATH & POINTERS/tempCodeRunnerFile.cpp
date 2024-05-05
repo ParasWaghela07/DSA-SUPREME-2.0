@@ -1,0 +1,1 @@
+cout<<"BY FAST : "<<ans2<<endl;
