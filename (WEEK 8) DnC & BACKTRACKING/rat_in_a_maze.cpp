@@ -9,7 +9,7 @@ void printpaths(vector<vector<int>>&maze,int &row,int &col,int i,int j,string&op
         cout<<op<<endl;
         return;
     }
-    if(maze[i][j]==1)
+    
     maze[i][j]=0;
 
     op.push_back('D');
@@ -28,7 +28,6 @@ void printpaths(vector<vector<int>>&maze,int &row,int &col,int i,int j,string&op
     printpaths(maze,row,col,i,j-1,op);
     op.pop_back();
 
-    if(maze[i][j]==0)
     maze[i][j]=1;
 
 }

@@ -30,3 +30,42 @@ public:
         return maxprofit;
     }
 };
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        vector<int>rightMax(n);
+        
+        rightMax[n-1]=0;
+        int maxi=prices[n-1];
+        for(int i=n-1;i>=0;i--){
+            rightMax[i]=maxi;
+            maxi=max(maxi,prices[i]);
+        }
+        int ans=0;
+        for(int i=0;i<n;i++){
+            int buy=prices[i];
+            int sell=rightMax[i];
+
+            ans=max(ans,sell-buy);
+        }
+
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int minP=INT_MAX;
+        int maxP=INT_MIN;
+
+        for(int i=0;i<prices.size();i++){
+            minP=min(minP,prices[i]);
+            maxP=max(maxP,prices[i]-minP); 
+        }
+
+        return maxP;
+    }
+};

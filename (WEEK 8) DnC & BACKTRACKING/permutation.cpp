@@ -19,4 +19,11 @@ int main(){
     int index=0;
     prmt(s,index);
 
+    // sort(nums.begin(),nums.end());        //STL
+    //     vector<vector<int>>ans;
+    //     ans.push_back(nums);
+    //     while(next_permutation(nums.begin(),nums.end())){
+    //         ans.push_back(nums);
+    //     }
+
 }

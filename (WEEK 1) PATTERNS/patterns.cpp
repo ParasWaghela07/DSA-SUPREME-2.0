@@ -660,57 +660,87 @@ int main()
 
 
 
-int size=(2*n)-1;
+// int size=(2*n)-1;
 
-for(int i=0;i<=size/2;i++){
+// for(int i=0;i<=size/2;i++){
 
-    int num=n;
+//     int num=n;
 
-    int midRange=(2*n)-(2*i)-1;
-    int startEndRange=(2*n-1)-midRange;
+//     int midRange=(2*n)-(2*i)-1;
+//     int startEndRange=(2*n-1)-midRange;
 
-    for(int j=0;j<startEndRange/2;j++){   //same as above without extra space
-        cout<<num<<" ";
-        num--;
-    }
+//     for(int j=0;j<startEndRange/2;j++){   //same as above without extra space
+//         cout<<num<<" ";
+//         num--;
+//     }
 
-    for(int j=0;j<midRange;j++){
-        cout<<num<<" ";
-    }
+//     for(int j=0;j<midRange;j++){
+//         cout<<num<<" ";
+//     }
 
-    for(int j=0;j<startEndRange/2;j++){
-        num++;
-        cout<<num<<" ";
-    }
+//     for(int j=0;j<startEndRange/2;j++){
+//         num++;
+//         cout<<num<<" ";
+//     }
 
-    cout<<endl;
+//     cout<<endl;
 
     
-}
+// }
 
-int midRange=3;
+// int midRange=3;
 
-for(int i=(size/2)+1;i<size;i++){
-    int num=n;
+// for(int i=(size/2)+1;i<size;i++){
+//     int num=n;
 
-    int startEndRange=(2*n-1)-midRange;
+//     int startEndRange=(2*n-1)-midRange;
 
-    for(int j=0;j<startEndRange/2;j++){
-        cout<<num<<" ";
-        num--;
+//     for(int j=0;j<startEndRange/2;j++){
+//         cout<<num<<" ";
+//         num--;
+//     }
+
+//     for(int j=0;j<midRange;j++){
+//         cout<<num<<" ";
+//     }
+
+//     for(int j=0;j<startEndRange/2;j++){
+//         num++;
+//         cout<<num<<" ";
+//     }
+//     midRange+=2;
+//     cout<<endl;
+// }
+
+ // 1 2 3 4 5
+ // 2     5
+ // 3   5
+ // 4 5
+ // 5
+
+
+ for(int i=0;i<n;i++){
+    for(int j=0;j<n-i;j++){
+        if(i==0 || i==n-1){
+            cout<<j+1<<" ";
+        }
+        else{
+            if(j==i){
+                cout<<j+1<<" ";
+            }
+            else if(j==n-i-1){
+                cout<<n-1<<" ";
+            }
+            else{
+                cout<<" ";
+            }
+        }
     }
-
-    for(int j=0;j<midRange;j++){
-        cout<<num<<" ";
-    }
-
-    for(int j=0;j<startEndRange/2;j++){
-        num++;
-        cout<<num<<" ";
-    }
-    midRange+=2;
     cout<<endl;
-}
+ }
+
+
+
 
 }
 
