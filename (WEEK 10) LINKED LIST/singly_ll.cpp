@@ -10,7 +10,7 @@ class Node{
     Node(){
         // cout<<"i am default ctor"<<endl;
         this->next=NULL;
-    }
+    } 
 
     Node(int data){
         // cout<<"i am para ctor"<<endl;
