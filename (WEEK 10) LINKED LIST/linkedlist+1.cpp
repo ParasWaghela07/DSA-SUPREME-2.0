@@ -109,6 +109,29 @@ void reverse(Node* &head){
 
     }
 
+    void add_one(Node* &head){
+        reverse(head);
+        int carry=1;
+        Node* curr=head;
+        while(carry){
+            int sum=curr->data + carry;
+            int digit = sum%10;
+            carry = sum/10;
+            curr->data = digit;
+            if(curr->next==NULL) break;
+            curr=curr->next;
+
+            cout<<endl;
+        }
+
+        if(carry){
+            Node* newNode=new Node(1);
+            curr->next=newNode;
+        }
+
+        reverse(head);
+    }
+
 
 
 int main(){
@@ -117,12 +140,19 @@ int main(){
 
 //    InsertAtEnd(head,tail,9);
 //    InsertAtEnd(head,tail,9);
-   InsertAtEnd(head,tail,0);
-   InsertAtEnd(head,tail,0);
-   InsertAtEnd(head,tail,0);
-   printLL(head);
+//    InsertAtEnd(head,tail,0);
+//    InsertAtEnd(head,tail,0);
+//    InsertAtEnd(head,tail,0);
+//    printLL(head);
 
-   AddOne(head);
+    InsertAtEnd(head,tail,9);
+    InsertAtEnd(head,tail,9);
+    InsertAtEnd(head,tail,9);
+
+
+
+//    AddOne(head);
+    add_one(head);
    printLL(head);
 
 

@@ -1,5 +1,3 @@
-//MY SOLUTION
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -12,47 +10,79 @@
  */
 class Solution {
 public:
+    int getlen(ListNode* head){
+        int count=0;
+        while(head){
+            count++;
+            head=head->next;
+        }
 
-int getlen(ListNode* head){
-    ListNode* temp=head;
-    int count=0;
-
-    while(temp!=NULL){
-        count++;
-        temp=temp->next;
+        return count;
     }
 
-    return count;
-}
+    void rev(ListNode* &head){
+        ListNode* prev=NULL;
+        ListNode* curr=head;
+
+        while(curr){
+            ListNode* nxt=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nxt;
+        }
+
+        head=prev;
+    }
     ListNode* rotateRight(ListNode* head, int k) {
-        if(head==NULL || head->next==NULL){
-            return head;
+        if(!head) return NULL;
+        if(!head->next) return head;
+
+        int len=getlen(head);
+        int actK=k%len;
+
+        if(actK==0) return head;
+
+        int posi=len-actK;
+        ListNode* temp=head;
+        while(posi>1){
+            temp=temp->next;
+            posi--;
         }
 
-        if(k%getlen(head)==0){
-            return head;
+        ListNode* saved=temp->next;
+        ListNode* newHead=saved;
+        temp->next=NULL;
+        while(saved->next){
+            saved=saved->next;
         }
 
-        k=k%getlen(head);
+        saved->next=head;
 
-        while(k){
-            ListNode* prev=NULL;
-            ListNode* curr=head;
+        return newHead;
 
-            while(curr->next!=NULL){
-                prev=curr;
-                curr=curr->next;
-            }
+        // rev(head);
 
-            ListNode* newHead=new ListNode(curr->val);
-            newHead->next=head;
-            head=newHead;
-            prev->next=NULL;
-            delete curr;
+        // int posi=actK;
+        // ListNode* temp=head;
+        // while(posi>1){
+        //     temp=temp->next;
+        //     posi--;
+        // }
+        // ListNode* list1=head;
+        // ListNode* list2=temp->next;
+        // temp->next=NULL;
 
-            k--;
-        }
-        return head;
+        // rev(list1);
+        // rev(list2);
+
+        // temp=list1;
+        // while(temp->next){
+        //     temp=temp->next;
+        // }
+
+        // temp->next=list2;
+
+        // return head=list1;
     }
 };
 

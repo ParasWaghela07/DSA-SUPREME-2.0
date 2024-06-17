@@ -34,3 +34,7 @@ using namespace std;
 //       cout<<"NOT-VALID"<<endl;
 //     }
 // }
+
+int main(){
+    cout<<7%5<<endl;
+}
