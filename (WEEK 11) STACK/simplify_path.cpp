@@ -1,90 +1,53 @@
 
-//MY SOLUTION //DONT USE
-
+//MY SOLUTION 
 class Solution {
 public:
     string simplifyPath(string path) {
+        stack<string>st;
         int i=0;
 
-        stack<char>st;
         while(i<path.size()){
-
             if(path[i]=='/'){
-
-                if(!st.empty() && st.top()=='/'){
-                    i++;
-                    continue;
+                if(st.empty() || st.top()!="/"){
+                    string s(1,path[i]);
+                    st.push(s);
                 }
-                else{
-                    st.push(path[i]);
-                }
-
                 i++;
-
-            }
-            else if(i-1>=0 && path[i-1]=='/' && path[i]=='.'){
-
-                if(i+2<path.size() && path[i+1]=='.' && path[i+2]=='.'){
-                    while(path[i]=='.'){
-                        st.push(path[i]);
-                        i++;
-                    }
-                }
-
-                 else if(i-1>=0 && path[i-1]=='/' && i+1<path.size() && path[i+1]=='.'){
-
-                   if(!st.empty()){
-                       st.pop();
-                   }
-
-                   if(st.empty() && i+2<path.size() && path[i+2]!='/'){
-                       st.push('/');
-                       st.push('.');
-                       st.push('.');
-                       i=i+2;
-                   }
-                   else{
-
-                    while(!st.empty() && st.top()!='/'){
-                    st.pop();
-                   }
-
-                   i=i+2;
-
-                   }
-
-                   
-               }
-               else if(i+1<path.size() && path[i+1]>='a' && path[i+1]<='z'){
-                   st.push(path[i]);
-                   i++;
-               }
-
-               else{
-                   i++;
-               }
             }
             else{
-                st.push(path[i]);
-                i++;
+                string temp;
+                bool alpha=false;
+                while(i<path.size() && path[i]!='/'){
+                    temp.push_back(path[i]);
+                    if(isalpha(path[i])) alpha=true;
+                    i++;
+                }
+
+                if(alpha || temp.size()>2){
+                    st.push(temp);
+                }
+                else if(temp==".."){
+                    st.pop();
+                    if(!st.empty()) st.pop();
+                }
+                else{
+                    st.pop();
+                }
             }
         }
 
-            while(!st.empty() && st.top()=='/'){
-            st.pop();
-            }
+        if(st.empty() || st.size()==1) return "/";
 
-            if(st.empty()){
-                st.push('/');
-            }
-        
-
+        if(st.top()=="/") st.pop();
 
         string ans;
 
         while(!st.empty()){
-            ans.push_back(st.top());
+            string top=st.top();
             st.pop();
+            reverse(top.begin(),top.end());
+
+            ans+=top;
         }
 
         reverse(ans.begin(),ans.end());
@@ -92,6 +55,8 @@ public:
         return ans;
     }
 };
+
+
 
 
 //LAKSHAY BHAIYA'S SOLUTION

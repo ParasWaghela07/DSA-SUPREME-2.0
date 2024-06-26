@@ -83,44 +83,32 @@ public:
 
     //STACK
 
-     bool isValid(string s) {
-        if(s[0]!='a'){
-            return false;
-        }
-        stack<char>st;
-        
-        for(auto ch : s){
+class Solution {
+public:
+    bool valid(stack<char>st){
+        if(st.top()!='b') return false;
+        st.pop();
+        if(st.top()!='a') return false;
 
-            if(ch=='a'){
-                st.push(ch);
-            }
-            else if(ch=='b'){
-                if(!st.empty() && st.top()=='a'){
-                    st.push(ch);
-                }
-                else{
-                    return false;
-                }
+        return true;
+    }
+    bool isValid(string s) {
+        stack<char>st;
+
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='c' && st.size()>=2 && valid(st)){
+                st.pop();
+                st.pop();
             }
             else{
-                if(!st.empty() && st.top()=='b'){
-                    st.pop();
-                    if(!st.empty() && st.top()=='a'){
-                        st.pop();
-                    }
-                    else{
-                        return false;
-                    }
-                }
-                else{
-                    return false;
-                }
+                st.push(s[i]);
             }
-
         }
 
-        return st.empty();
-
-     }
+        if(!st.empty()) return false;
+        
+        return true;
+    }
+};
 
 

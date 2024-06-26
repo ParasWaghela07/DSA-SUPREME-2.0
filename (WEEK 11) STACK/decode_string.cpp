@@ -1,53 +1,49 @@
-//LINE 25 ERROR , NOT SUBMITTED IN LEETCODE , PB NO:-394
-
-
 class Solution {
 public:
     string decodeString(string s) {
-        stack<string>st;
-        for(auto ch : s){
-            string toRepeat="";
-            if(ch==']'){
-                while(!st.empty() && !isdigit(st.top()[0])){
-                    string top=st.top();
+         stack<string>st;
 
-                    if(top!="[")
-                    toRepeat+=top;
-
+         for(int i=0;i<s.size();i++){
+            if(s[i]==']'){
+                string toRepeat="";
+                while(!st.empty() && st.top()!="["){
+                    toRepeat+=st.top();
                     st.pop();
                 }
+                st.pop();
 
                 string numeric="";
                 while(!st.empty() && isdigit(st.top()[0])){
-                    string top=st.top();
-                    toRepeat+=top;
+                    numeric+=st.top();
                     st.pop();
                 }
 
                 reverse(numeric.begin(),numeric.end());
-                int n=stoi(numeric);
 
-                string currString="";
-                while(n--){
-                    currString+=toRepeat;
+                int n=stoi(numeric);
+                string final="";
+                while(n){
+                    final+=toRepeat;
+                    n--;
                 }
 
-                st.push(currString);
-
+                st.push(final);
 
             }
             else{
-                string temp(1,ch);
-                st.push(temp);
+               string temp(1,s[i]);
+               st.push(temp);
             }
-        }
+         }
 
-        string ans;
-        while(!st.empty()){
+         string ans="";
+         while(!st.empty()){
             ans+=st.top();
             st.pop();
-        }
+         }
 
-        return ans;
+         reverse(ans.begin(),ans.end());
+
+         return ans;
     }
 };

@@ -1,3 +1,76 @@
+-----BRUTE FORCE-------- O(N*N) O(N)
+class Solution 
+{
+    public:
+    bool rowCheck(int rowIndex,vector<vector<int> >& M){
+        for(int col=0;col<M[0].size();col++){
+            if(M[rowIndex][col]==1) return false;
+        }
+        return true;
+    }
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(vector<vector<int> >& M, int n) 
+    {
+        
+        if(M.size()==1) return 0;
+        
+        unordered_map<int,int>mp;
+        
+        
+        for(int i=0;i<M.size();i++){
+            for(int j=0;j<M[0].size();j++){
+                if(M[i][j]==0) continue;
+                
+                mp[j]++;
+            }
+        }
+        
+        for(auto it:mp){
+            if(it.second==n-1){
+                if(rowCheck(it.first,M)){
+                    return it.first;
+                }
+            }
+        }
+        
+        return -1;
+    }
+};
+
+------OPTIMIZED------- O(N) O(2N)
+
+class Solution 
+{
+    public:
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(vector<vector<int> >& M, int n) 
+    {
+       if(M.size()==1) return 0;
+        
+       vector<int>Indegree(n);
+       vector<int>Outdegree(n);
+       
+       for(int i=0;i<M.size();i++){
+           for(int j=0;j<M[0].size();j++){
+               if(M[i][j]==1){
+                   Indegree[j]++;
+                   Outdegree[i]++;
+               }
+           }
+       }
+       
+       for(int i=0;i<n;i++){
+           if(Outdegree[i]==0 && Indegree[i]==n-1){
+               return i;
+           }
+       }
+       
+       return -1;
+    }
+};
+
+
+---BEST---
 
 int celebrity(vector<vector<int> >& M, int n) 
     {
