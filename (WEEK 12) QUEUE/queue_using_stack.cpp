@@ -44,27 +44,15 @@ stack<int>s1,s2;
     }
 };
 
-/**
- * Your MyQueue object will be instantiated and called as such:
- * MyQueue* obj = new MyQueue();
- * obj->push(x);
- * int param_2 = obj->pop();
- * int param_3 = obj->peek();
- * bool param_4 = obj->empty();
- */
-
-
-
-
-
 // METHOD 2 :
     //  INSERTION : O(1)
     //  DELETION/PEEK : O(N)
     //EMPTY : O(1)
+    
 
 class MyQueue {
 public:
-stack<int>s1,s2;
+    stack<int>s1,s2;
     MyQueue() {
         
     }
@@ -74,49 +62,80 @@ stack<int>s1,s2;
     }
     
     int pop() {
-        int popped=-1;
-        if(!s2.empty()){
-            popped=s2.top();
-            s2.pop();
-        }
-        else{
+        if(s2.empty()){
             while(!s1.empty()){
                 s2.push(s1.top());
                 s1.pop();
             }
-
-            popped=s2.top();
-            s2.pop();
         }
 
-        return popped;
+        int temp=s2.top();
+        s2.pop();
+
+        return temp;
     }
     
     int peek() {
-        int peeked=-1;
-        if(!s2.empty()){
-            peeked=s2.top();
-        }
-        else{
+        if(s2.empty()){
             while(!s1.empty()){
                 s2.push(s1.top());
                 s1.pop();
             }
-
-            peeked=s2.top();
         }
 
-        return peeked;
+        int temp=s2.top();
 
+        return temp;
     }
     
     bool empty() {
-        if(s1.empty() && s2.empty()){
-            return true;
+        return (s1.empty() && s2.empty());
+    }
+};
+
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
+
+class MyQueue {
+public:
+    stack<int>s1;
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        if(s1.empty()){
+            s1.push(x);
+            return;
         }
-        else{
-            return false;
-        }
+
+        int temp=s1.top();
+        s1.pop();
+
+        push(x);
+        s1.push(temp);
+    }
+    
+    int pop() {
+        int temp=s1.top();
+        s1.pop();
+
+        return temp;
+    }
+    
+    int peek() {
+        return s1.top();
+    }
+    
+    bool empty() {
+        return s1.empty();
     }
 };
 

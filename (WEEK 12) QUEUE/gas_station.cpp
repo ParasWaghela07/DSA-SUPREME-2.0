@@ -1,56 +1,65 @@
 class Solution {
 public:
-//BABBAR'S SOLU
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-        int prev_cost=0;
-        int curr_cost=0;
-
-        //index from where we ares starting
-        int start=0;
+        int index=0;
+        
+        int deficit=0;
+        int balance=0;
 
         for(int i=0;i<gas.size();i++){
-            curr_cost+=gas[i]-cost[i];
+            balance+=gas[i]-cost[i];
 
-            if(curr_cost<0){
-                prev_cost+=abs(curr_cost);
-                start=i+1;
-                curr_cost=0;
+            if(balance<0){
+                deficit+=balance*-1;
+                balance=0;
+                index=i+1;
             }
         }
 
-        if(curr_cost-prev_cost>=0){
-            return start;
+        if(balance-deficit>=0){
+            return index;
         }
         else{
             return -1;
         }
-
     }
 };
 
 
-//RANDOM SOLU
+/////--QUEUE BASED
+
 class Solution {
 public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-        int n=gas.size();
-        int total_gas=0,total_cost=0;
-        int curr_gas=0, starting_point=0;
-        for(int i=0;i<n;i++)
-        {
-            //these two variable are to check if no case is possible
-            total_gas+=gas[i];
-            total_cost+=cost[i];
-            //for checking the total present gas at index i
-            curr_gas+=gas[i]-cost[i];
-            if(curr_gas<0)
-            {
-               //there is a breakdown....so we will start from next point or index
-                starting_point=i+1;
-                //reset our fuel 
-                curr_gas=0;
+        int front=0;
+        int rear=0;
+
+        int gasValue=0;
+        int costValue=0;
+
+        bool roundCompleted=false;
+
+        while(front<gas.size()){
+            gasValue+=gas[rear];
+            costValue+=cost[rear];
+
+            if(gasValue>=costValue){
+                rear++;
+                if(rear>=gas.size()){
+                    rear=0;
+                    roundCompleted=true;
+                }
+                if(rear==front) return rear;
+            }
+            else{
+                if(roundCompleted) break;
+                rear++;
+                front=rear;
+                gasValue=0;
+                costValue=0;
             }
         }
-        return (total_gas<total_cost)?-1:starting_point;     
+
+        return -1;
     }
 };
