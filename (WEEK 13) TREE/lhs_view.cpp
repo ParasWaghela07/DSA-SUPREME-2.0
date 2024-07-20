@@ -21,15 +21,17 @@ Node* InsertNode(){
     int x;
     cin>>x;
 
+    if(x==-1){
+        return NULL;
+    }
     Node* root=new Node(x);
 
-    if(x==-1){
-        return root;
-    }
         cout<<"Enter the left value for :"<<root->data<<endl;
         root->left=InsertNode();
         cout<<"Enter the right value for :"<<root->data<<endl;
         root->right=InsertNode();
+
+        return root;
     
 }
 
@@ -47,15 +49,18 @@ void bfs(Node* root){
             if(!q.empty()){
                 q.push(NULL);
             }
+            else{
+                break;
+            }
         }
         else{
             cout<<temp->data<<" ";
 
-            if(temp->left->data!=-1){
+            if(temp->left){
                 q.push(temp->left);
             }
 
-            if(temp->right->data!=-1){
+            if(temp->right){
                 q.push(temp->right);
             }
         }
@@ -102,6 +107,29 @@ queue<Node*> lhsView(Node* root){
     return q1;
 }
 
+void leftview(Node*root){
+    queue<Node*>q;
+    q.push(root);
+    cout<<root->data<<endl;
+    q.push(NULL);
+
+    while(!q.empty()){
+        Node*front=q.front();
+        q.pop();
+
+        if(front==NULL){
+            if(q.empty()) break;
+            q.push(NULL);
+            cout<<q.front()->data<<endl;
+        }
+        else{
+            if(front->left) q.push(front->left);
+            if(front->right) q.push(front->right);
+        }
+
+    }
+}
+
 //USING RECURSION
 void lhsByRecursion(Node* root,int level,vector<int>&v){
     if(root->data==-1){
@@ -122,7 +150,7 @@ int main(){
     Node* root=InsertNode();
 
     bfs(root);
-
+    cout<<"LHS "<<endl;
     //BY BFS METHOD 
 
     // queue<Node*>q1=lhsView(root);
@@ -141,6 +169,8 @@ int main(){
     //     if(q1.front()==NULL && !q1.empty())
     //     q1.pop();
     // }
+
+    leftview(root);
 
 
 

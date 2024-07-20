@@ -98,14 +98,16 @@ void printRightBoundary(Node* root){
         return;
     }
 
-    if(root->left!=NULL)
-    printLeftBoundary(root->left);
-    else
-    printLeftBoundary(root->right);
-
     if(root->left==NULL && root->right==NULL){
         return;
     }
+
+
+    if(root->right!=NULL)
+    printLeftBoundary(root->right);
+    else
+    printLeftBoundary(root->left);
+
 
     cout<<root->data<<" ";
 }

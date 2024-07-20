@@ -23,7 +23,7 @@ Node* InsertNode(){
     Node* root=new Node(x);
 
     if(x==-1){
-        return root;
+        return NULL;
     }
         cout<<"Enter the left value for :"<<root->data<<endl;
         root->left=InsertNode();
@@ -41,13 +41,16 @@ void levelBfs(Node* root){
         Node* front=q.front();
         q.pop();
 
-        if(front==NULL && !q.empty()){
+        if(front==NULL){
+            if(q.empty()) break;
             q.push(NULL);
             cout<<endl;
+
         }
         else{
 
         cout<<front->data<<" ";
+        
         if((front->left)->data!=-1){
             q.push(front->left);
         }

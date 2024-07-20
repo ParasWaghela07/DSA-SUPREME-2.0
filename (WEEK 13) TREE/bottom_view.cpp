@@ -59,7 +59,7 @@ void bfs(Node* root){
     }
 }
 
-void top_view(Node* root){
+void bottom_view(Node* root){
     map<int,int>hdToNode;
     queue<pair<Node*,int>>q;
 
@@ -95,5 +95,5 @@ Node* root=InsertNode();
 
 bfs(root);
 
-top_view(root);
+bottom_view(root);
 }

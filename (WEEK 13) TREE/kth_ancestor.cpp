@@ -30,43 +30,59 @@ Node* InsertNode(){
     
 }
 
-Node* kthAncestor(Node* root,Node* key,int &k,int &ans){
-    if(root==NULL){
-        return NULL;
-    }
+// Node* kthAncestor(Node* root,Node* key,int &k,int &ans){
+//     if(root==NULL){
+//         return NULL;
+//     }
 
-    if(ans!=-1){
-        return root;
-    }
+//     if(ans!=-1){
+//         return root;
+//     }
 
+//     if(root->data==key->data){
+//         return root;
+//     }
+
+//     Node* leftAns=kthAncestor(root->left,key,k,ans);
+//     Node* rightAns=kthAncestor(root->right,key,k,ans);
+
+//     if(leftAns==NULL && rightAns==NULL){
+//         return NULL;
+//     }
+
+//     k--;
+//     if(k==0){
+//         ans=root->data;
+//         return root;
+//     }
+
+//     if(leftAns!=NULL && rightAns==NULL){
+//         return leftAns;
+//     }
+//     else if(leftAns==NULL && rightAns!=NULL){
+//         return rightAns;
+//     }
+//     else{
+//         return root;
+//     }
+// }
+Node* kthAncestor(Node* root,Node* key,int &k){
+    if(!root) return NULL;
     if(root->data==key->data){
-        return root;
+        return key;
+    }
+    Node* leftNode=kthAncestor(root->left,key,k);
+    Node* rightNode=kthAncestor(root->right,key,k);
+
+    if(leftNode || rightNode){
+        k--;
+        if(k>=0) return root;
+        else if(leftNode) return leftNode;
+        else return rightNode;
     }
 
-    Node* leftAns=kthAncestor(root->left,key,k,ans);
-    Node* rightAns=kthAncestor(root->right,key,k,ans);
-
-    if(leftAns==NULL && rightAns==NULL){
-        return NULL;
-    }
-
-    k--;
-    if(k==0){
-        ans=root->data;
-        return root;
-    }
-
-    if(leftAns!=NULL && rightAns==NULL){
-        return leftAns;
-    }
-    else if(leftAns==NULL && rightAns!=NULL){
-        return rightAns;
-    }
-    else{
-        return root;
-    }
+    return NULL;
 }
-
 int main(){
     cout<<"Enter the Root element : "<<endl;
     Node* root=InsertNode();
@@ -80,9 +96,8 @@ int main(){
 
     Node* key=new Node(x);
 
-    int ans=-1;
-    kthAncestor(root,key,k,ans);
+    Node* ans=kthAncestor(root,key,k);
 
-    cout<<ans<<endl;
+    cout<<ans->data<<endl;
 
 }
