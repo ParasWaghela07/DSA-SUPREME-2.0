@@ -1,5 +1,75 @@
 class Solution
 {
+public:
+
+    pair<int,int>ans={INT_MIN,INT_MIN};
+    
+    void findLongestPath(Node *root,int sum,int level){
+        if(!root) return;
+        
+        sum+=root->data;
+        
+        if(!root->left && !root->right){
+            if(level>ans.first){
+                ans.first=level;
+                ans.second=sum;
+            }
+            else if(level==ans.first && sum>ans.second){
+                ans.first=level;
+                ans.second=sum;
+            }
+            
+        }
+        
+        findLongestPath(root->left,sum,level+1);
+        findLongestPath(root->right,sum,level+1);
+    }
+    
+    int sumOfLongRootToLeafPath(Node *root)
+    {
+        findLongestPath(root,0,0);
+        
+        return ans.second;
+    }
+};
+
+
+
+
+
+//LAKSHAY BHAIYA'S SOLUTION
+pair<int,int> height(Node* root){
+        if(root==NULL){
+            return {0,0}; 
+        }
+        
+        auto leftAns=height(root->left);
+        auto rightAns=height(root->right);
+        
+        int sum=root->data;
+        if(leftAns.first == rightAns.first){
+            sum+=leftAns.second>rightAns.second?leftAns.second:rightAns.second;
+        }
+        else if(leftAns.first>rightAns.first){
+            sum+=leftAns.second;
+        }
+        else{
+            sum+=rightAns.second;
+        }
+        
+        return {max(leftAns.first,rightAns.first)+1,sum}; 
+    }
+    
+    int sumOfLongRootToLeafPath(Node *root){
+        auto h=height(root);
+        return h.second;
+    }
+    
+
+
+
+class Solution
+{
 
 //MY SOLUTION
 public:
@@ -162,31 +232,3 @@ if(root==NULL) return;
 
 };
 
-
-//LAKSHAY BHAIYA'S SOLUTION
-pair<int,int> height(Node* root){
-        if(root==NULL){
-            return {0,0}; 
-        }
-        
-        auto leftAns=height(root->left);
-        auto rightAns=height(root->right);
-        
-        int sum=root->data;
-        if(leftAns.first == rightAns.first){
-            sum+=leftAns.second>rightAns.second?leftAns.second:rightAns.second;
-        }
-        else if(leftAns.first>rightAns.first){
-            sum+=leftAns.second;
-        }
-        else{
-            sum+=rightAns.second;
-        }
-        
-        return {max(leftAns.first,rightAns.first)+1,sum}; 
-    }
-    
-    int sumOfLongRootToLeafPath(Node *root){
-        auto h=height(root);
-        return h.second;
-    }
