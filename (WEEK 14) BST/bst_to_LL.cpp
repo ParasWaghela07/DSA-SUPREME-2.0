@@ -148,6 +148,15 @@ void printList(Node* head){
     }
 }
 
+void own(Node* root,Node* &head){
+    if(!root) return;
+
+    own(root->left,head);
+    root->right=head;
+    head=root;
+    own(root->right,head);
+}
+
 
 //LAKSHAY BHAIYA'S SOLUTION
 

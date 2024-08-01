@@ -1,3 +1,47 @@
+//MINE
+class Solution{
+  public:
+    void helper(Node*root,bool &ans,int mini,int maxi){
+        if(!ans){
+            if(!root) return;
+            if(!root->left && !root->right){
+                if(root->data-mini==1 && maxi-root->data==1){
+                    ans=true;
+                }
+            }
+            
+            helper(root->left,ans,mini,root->data);
+            helper(root->right,ans,root->data,maxi);
+        }
+    }
+    bool isDeadEnd(Node *root)
+    {
+        bool ans=false;
+        helper(root,ans,0,10002);
+        return ans;
+    }
+};
+
+class Solution{
+  public:
+    bool helper(Node*root,int mini,int maxi){
+        if(!root) return false;
+        if(!root->left && !root->right){
+            if(root->data-mini==1 && maxi-root->data==1){
+                return true;
+            }
+        }
+        bool leftAns=helper(root->left,mini,root->data);
+        bool rightAns=helper(root->right,root->data,maxi);
+        
+        return leftAns||rightAns;
+    }
+    bool isDeadEnd(Node *root)
+    {
+        return helper(root,0,10002);
+    }
+};
+
 //LAKSHAY BHAIYA'S SOLU
 class Solution{
   public:

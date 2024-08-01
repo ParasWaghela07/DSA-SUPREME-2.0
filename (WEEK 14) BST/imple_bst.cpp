@@ -245,17 +245,17 @@ int main()
     //     cout<<"NOT FOUND"<<endl;
     // }
 
-    int target ;
-	cout << "Enter the value of target: " << endl;
-	cin >> target;
+    // int target ;
+	// cout << "Enter the value of target: " << endl;
+	// cin >> target;
 
-	while(target != -1) {
-		root = deleteNode(root,  target);
-		cout << endl << "Printing Level Order Traversal: " << endl;
-		BFStraversal(root);
+	// while(target != -1) {
+	// 	root = deleteNode(root,  target);
+	// 	cout << endl << "Printing Level Order Traversal: " << endl;
+	// 	BFStraversal(root);
 
-		cout << "Enter the value of target: " << endl;
-		cin >> target;
+	// 	cout << "Enter the value of target: " << endl;
+	// 	cin >> target;
 		
-	}
+	// }
 }
