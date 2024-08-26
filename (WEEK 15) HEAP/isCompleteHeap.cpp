@@ -8,7 +8,7 @@ class Solution {
         return false;
     }
 
-    return isCBT(root->left,2*i,n) && isCBT(root->right.2*i + 1 , n);
+    return isCBT(root->left,2*i,n) && isCBT(root->right,2*i + 1 , n);
 
   }
   bool isComplete(Node* root){

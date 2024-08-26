@@ -8,7 +8,7 @@ class heap{
     int capacity;
 
     heap(int size){
-        this->arr=new int[size];
+        this->arr=new int[size+1];
         this->size=0;
         this->capacity=size;
    }
@@ -111,15 +111,16 @@ void heapSort(int arr[],int n){
 }
 
 int main(){
-    // heap h(20);
+    heap h(3);
 
     // h.insert(10);
     // h.insert(5);
     // h.insert(6);
     // h.insert(8);
-    // h.insert(9);
-    // h.insert(11);
-    // h.insert(14);
+    // // h.insert(9);
+    // // h.insert(11);
+    // // h.insert(14);
+
 
     // h.printHeap();
     // cout<<endl;

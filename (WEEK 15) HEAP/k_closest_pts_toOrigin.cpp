@@ -95,6 +95,45 @@ bool isSmaller(vector<int>a , vector<int>b){
     }
 };
 
+class Solution {
+public:
+    class compare{
+        public:
+        bool operator()(const vector<int>&a,const vector<int>&b){
+            int p=(a[0])*(a[0]) + (a[1])*(a[1]);
+            int q=(b[0])*(b[0]) + (b[1])*(b[1]);
+
+            return p<q;
+        }
+    };
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        priority_queue<vector<int>,vector<vector<int>>,compare>pq;
+
+        for(int i=0;i<k;i++){
+            pq.push(points[i]);
+        }
+
+        for(int i=k;i<points.size();i++){
+            vector<int>top=pq.top();
+            vector<int>curr=points[i];
+
+            int topdist=(top[0]*top[0])+(top[1])*(top[1]);
+            int currdist=(curr[0]*curr[0])+(curr[1]*curr[1]);
+
+            if(currdist<topdist){
+                pq.pop();
+                pq.push(curr);
+            }
+        }
+        vector<vector<int>>ans;
+        while(!pq.empty()){
+            ans.push_back(pq.top());
+            pq.pop();
+        }
+
+        return ans;
+    }
+};
 
 //LAKSHAY BHAIYA'S SOLUTION
 

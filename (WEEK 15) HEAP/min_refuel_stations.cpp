@@ -1,3 +1,45 @@
+class Solution {
+public:
+
+    int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
+        priority_queue<int>pq;
+        int position=startFuel;
+        int ans=0;
+
+        for(auto it:stations){
+            int currPosi=it[0];
+            int currFuel=it[1];
+
+            if(currPosi<=position){
+                pq.push(currFuel);
+            }
+            else{
+                while(position < currPosi){
+                    if(pq.empty()) return -1;
+                    position+=pq.top();
+                    pq.pop();
+
+                    ans++;
+                }
+                pq.push(currFuel);
+            }
+        }
+
+        if(position>=target) return ans;
+
+        while(position<target){
+            if(pq.empty()) return -1;
+            position+=pq.top();
+            pq.pop();
+            ans++;
+        }
+        return ans;
+    }
+};
+
+
+
+
 class Solution
 {
 public:

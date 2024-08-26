@@ -45,6 +45,52 @@ public:
 
 
     // }
+    class Solution {
+public:
+    class compare{
+        public:
+        bool operator()(const pair<char,int>&a,const pair<char,int>&b){
+            return a.second<b.second;
+        }
+    };
+    string reorganizeString(string s) {
+        priority_queue<pair<char,int>,vector<pair<char,int>>,compare>pq;
+        unordered_map<char,int>mp;
+
+        for(auto it:s){
+            mp[it]++;
+        }
+
+        for(auto it:mp){
+            pq.push({it.first,it.second});
+        }
+
+        string ans="";
+
+        while(pq.size()>1){
+            auto top1=pq.top();pq.pop();
+            auto top2=pq.top();pq.pop();
+
+            ans.push_back(top1.first);
+            ans.push_back(top2.first);
+
+            top1.second--;
+            top2.second--;
+
+            if(top1.second>0) pq.push(top1);
+            if(top2.second>0) pq.push(top2);
+        }
+
+        if(!pq.empty()){
+            auto top1=pq.top();pq.pop();
+            if(top1.second>1) return "";
+            if(ans.size()>1 && top1.first==ans.back()) return "";
+            ans.push_back(top1.first);
+        }
+            return ans;
+    }
+};
+
     class info{
         public:
         char val;

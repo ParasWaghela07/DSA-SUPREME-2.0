@@ -20,3 +20,29 @@ public:
         return count;
     }
 };
+
+class Solution {
+public:
+    int minStoneSum(vector<int>& piles, int k) {
+        priority_queue<int>pq;
+        int sum=0;
+        for(int i=0;i<piles.size();i++){
+            sum+=piles[i];
+            pq.push(piles[i]);
+        }
+
+        while(k--){
+            int top=pq.top();
+            pq.pop();
+
+            sum-=top;
+
+            int newTop=(top&1)?(top/2)+1:top/2;
+
+            sum+=newTop;
+            pq.push(newTop);
+        }
+
+        return sum;
+    }
+};
