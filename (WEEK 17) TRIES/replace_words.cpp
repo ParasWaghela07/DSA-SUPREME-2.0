@@ -1,38 +1,43 @@
 //OWN
-string replaceWords(vector<string>& dictionary, string sentence) {
-        unordered_map<string,string>mp;
+class Solution {
+public:
+    string replaceWords(vector<string>& dictionary, string sentence) {
+        unordered_set<string>mp;
+
         for(auto it:dictionary){
-            mp[it]=it;
+            mp.insert(it);
         }
-        int i=0;
-        int n=sentence.size();
-        string ans,temp,found;
-        while(i<n){
 
-            if(sentence[i]!=' ')
-            temp+=sentence[i];
+        string ans="";
+        int index=0;
+        string temp="";
 
-            if(mp.find(temp)!=mp.end()){
-                if(found.size()==0) found=mp[temp];
-                else found=mp[temp].size()<found.size()?mp[temp]:found;
+        while(index<sentence.size()){
+
+            if(sentence[index]==' '){
+                ans+=temp+' ';
+                temp="";
             }
-            if(sentence[i]==' ' || i==n-1){
-                if(found.size()>0){
-                    ans+=found;
-                    found="";
-                    temp="";
+            else if(mp.find(temp)!=mp.end()){
+                ans+=temp;
+                while(index<sentence.size() && sentence[index]!=' ') index++;
+
+                if(index<sentence.size()){
+                    ans.push_back(' ');
                 }
-                else{
-                    ans+=temp;
-                    temp="";
-                    found="";
-                }
-                if(i!=n-1) ans+=' ';
+
+                temp="";
             }
-            i++;
+            else{
+                temp.push_back(sentence[index]);
+            }
+
+            index++;
         }
+        if(temp.size()>0) ans+=temp;
         return ans;
     }
+};
 
     //REFINED
     class Solution {
@@ -66,6 +71,87 @@ public:
             ans.pop_back();
         else
             ans += temp;
+        return ans;
+    }
+};
+
+//// SIMPLER
+class Solution {
+public:
+    class TrieNode{
+        public:
+        char ch;
+        bool isTerminal;
+        TrieNode* childrens[26];
+
+        TrieNode(char ch){
+            this->ch=ch;
+            this->isTerminal=false;
+
+            for(int i=0;i<26;i++){
+                this->childrens[i]=0;
+            }
+        }
+    };
+
+    void insert(TrieNode*root,string &word,int index){
+        if(index>=word.size()){
+            root->isTerminal=true;
+            return;
+        }
+
+        char chIndex=word[index]-'a';
+        if(!root->childrens[chIndex]) 
+            root->childrens[chIndex]=new TrieNode(word[index]);
+
+        insert(root->childrens[chIndex],word,index+1);
+        
+    }
+
+    bool search(TrieNode*root,string &word,int index,string &matched){
+        if(root->isTerminal){
+            return true;
+        }
+        if(index>=word.size()) return root->isTerminal;
+        
+        char chIndex=word[index]-'a';
+        if(root->childrens[chIndex]!=NULL){
+            matched.push_back(word[index]);
+            return search(root->childrens[chIndex],word,index+1,matched);
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    string replaceWords(vector<string>& dictionary, string sentence) {
+        TrieNode*root=new TrieNode('-');
+        for(auto it:dictionary){
+            insert(root,it,0);
+        }
+
+        int index=0;
+        string ans="";
+        while(index<sentence.size()){
+            string word="";
+            string matched="";
+            while(index<sentence.size() && sentence[index]!=' '){
+                word.push_back(sentence[index]);
+                index++;
+            }
+
+            if(search(root,word,0,matched)){
+                ans+=matched+' ';
+            }
+            else{
+                ans+=word+' ';
+            }
+            index++;
+        }
+
+        ans.pop_back();
+
         return ans;
     }
 };

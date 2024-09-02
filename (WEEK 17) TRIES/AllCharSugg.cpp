@@ -96,6 +96,38 @@ vector<vector<string> > getSuggestions(TrieNode* root, string input) {
 }
 
 
+//SIMPLER
+void getSuffix(TrieNode*root,string word,vector<string>&ans){
+
+    if(root->isTerminal){
+        ans.push_back(word);
+    }
+    
+    for(int i=0;i<26;i++){
+        if(root->children[i]!=NULL){
+            word.push_back(root->children[i]->ch);
+            getSuffix(root->children[i],word,ans);
+            word.pop_back();
+        }
+    }
+}
+
+void suggestions(TrieNode*root,string &prefix,int index,vector<string>&ans){
+    if(index>=prefix.size()){
+        getSuffix(root,prefix,ans);
+        return;
+    }
+
+    int charIndex=prefix[index]-'a';
+    
+    if(root->children[charIndex]==NULL){
+        return;
+    }
+    else{
+        suggestions(root->children[charIndex],prefix,index+1,ans);
+    }
+}
+
 int main() {
   TrieNode* root = new TrieNode('-');
 

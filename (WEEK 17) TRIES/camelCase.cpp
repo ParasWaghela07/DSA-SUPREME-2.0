@@ -1,6 +1,71 @@
 class Solution {
 public:
     vector<bool> camelMatch(vector<string>& queries, string pattern) {
+        vector<bool>ans;
+        for(auto it:queries){
+            string a=it;
+            string p=pattern;
+            bool isvalid=true;
+
+            int i=0;
+            int j=0;
+
+            while(i<a.size() && j<p.size()){
+                char c1=a[i];
+                char c2=p[j];
+
+                if(isupper(c1) && isupper(c2)){
+                    if(c1==c2){
+                        i++;
+                        j++;
+                    }
+                    else{
+                        isvalid=false;
+                        break;
+                    }
+                }
+                else if(isupper(c1) && islower(c2)){
+                    isvalid=false;
+                    break;
+                }
+                else if(islower(c1) && isupper(c2)){
+                    i++;
+                }
+                else{
+                    if(c1==c2){
+                        i++;
+                        j++;
+                    }
+                    else{
+                        i++;
+                    }
+                }
+            }
+
+            while(i<a.size()){
+                if(isupper(a[i])){
+                    isvalid=false;
+                    break;
+                }
+                i++;
+            }
+
+            if(j<p.size()) isvalid=false;
+
+            if(isvalid)ans.push_back(true);
+            else ans.push_back(false);
+
+        }
+
+        return ans;
+    }
+};
+
+
+
+class Solution {
+public:
+    vector<bool> camelMatch(vector<string>& queries, string pattern) {
        vector<bool>ans;
        for(int i=0;i<queries.size();i++){
            string s=queries[i];

@@ -1,3 +1,41 @@
+class Solution {
+  public:
+    Node* findIntersection(Node* head1, Node* head2) {
+       unordered_map<int,int>mp;
+       
+       Node*temp=head2;
+       while(temp){
+           mp[temp->data]++;
+           temp=temp->next;
+       }
+       
+       temp=head1;
+       
+       Node*prev=NULL;
+       Node*newHead=NULL;
+       
+       while(temp){
+           if(mp[temp->data]>0){
+               if(prev){
+                   prev->next=temp;
+               }
+               else{
+                   newHead=temp;
+               }
+               prev=temp;
+               mp[temp->data]--;
+           }
+           temp=temp->next;
+       }
+       
+       if(prev)prev->next=NULL;
+       
+       return newHead;
+    }
+};
+
+
+
 Node* findIntersection(Node* head1, Node* head2)
     {
         unordered_map<int,int>mp;
