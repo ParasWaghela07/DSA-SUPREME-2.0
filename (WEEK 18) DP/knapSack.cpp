@@ -203,3 +203,18 @@ int main() {
 
 // 	return 0;
 // }
+
+
+//////////////////
+        for(int i=val.size()-1;i>=0;i--){
+            for(int j=0;j<=w;j++){
+                int op1=0;
+                if(j-wt[i]>=0){
+                    op1=val[i]+dp[i+1][j-wt[i]];
+                }
+                
+                int op2=dp[i+1][j];
+                
+                dp[i][j]=max(op1,op2);
+            }
+        }

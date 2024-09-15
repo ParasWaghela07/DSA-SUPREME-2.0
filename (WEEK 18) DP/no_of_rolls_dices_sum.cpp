@@ -1,66 +1,98 @@
-//VARIENT 1
-    class Solution {
-public:
-    int byRecursion(int n,int k,int target){
-        if(n==0 && target==0){
-            return 1;
-        }
-        if(n==0 && target!=0){
-            return 0;
-        }
-        if(n!=0 && target==0){
-            return 0;
-        }
 
-        int ans=0;
-        for(int i=1;i<=k;i++){
-            if(target-i>=0)
-            ans=ans+byRecursion(n-1,k,target-i);
+//VARIENT 1
+class Solution {
+public:
+    int mod = 1000000007;
+    int byRec(int dices, int& faces, int target) {
+        if (target < 0)
+            return 0;
+        if (dices == 0 && target > 0)
+            return 0;
+        if (dices == 0 && target == 0)
+            return 1;
+
+        int ans = 0;
+        for (int i = 1; i <= faces; i++) {
+            ans = (ans + byRec(dices - 1, faces, target - i)) % mod;
         }
         return ans;
     }
-    int byMemo(int n,int k,int target,vector<vector<int>>&dp){
-        if(n==0 && target==0){
-            return 1;
-        }
-        if(n==0 && target!=0){
-            return 0;
-        }
-        if(n!=0 && target==0){
-            return 0;
-        }
-        if(dp[n][target]!=-1){
-            return dp[n][target];
-        }
 
-        int ans=0;
-        for(int i=1;i<=k;i++){
-            if(target-i>=0)
-            ans=(ans+byMemo(n-1,k,target-i,dp))%1000000007;
+    int byMem(int dices, int& faces, int target, vector<vector<int>>& dp) {
+        if (target < 0)
+            return 0;
+        if (dices == 0 && target > 0)
+            return 0;
+        if (dices == 0 && target == 0)
+            return 1;
+        if (dp[dices][target] != -1)
+            return dp[dices][target];
+
+        int ans = 0;
+        for (int i = 1; i <= faces; i++) {
+            ans = (ans + byMem(dices - 1, faces, target - i, dp)) % mod;
         }
-        dp[n][target]=ans;
-        return dp[n][target];
+        return dp[dices][target] = ans;
     }
-    int byTabu(int n ,int k, int target){
-        vector<vector<int>>dp(n+1,vector<int>(target+1,0));
-        for(int dice=0;dice<=n;dice++){
-            for(int goal=0;goal<=target;goal++){
-                
+
+    int byTabu(int& n, int& k, int& target) {
+        vector<vector<int>> dp(n + 1, vector<int>(target + 1, 0));
+
+        dp[0][0] = 1;
+
+        for (int dices = 1; dices <= n; dices++) {
+            for (int tar = 0; tar <= target; tar++) {
+                int ans = 0;
+                for (int i = 1; i <= k; i++) {
+                    if (tar - i >= 0)
+                        ans = (ans + dp[dices - 1][tar - i]) % mod;
+                }
+                dp[dices][tar] = ans;
             }
         }
-    }
-    int numRollsToTarget(int n, int k, int target) {
-        // int ans = byRecursion(n,k,target);
-        
-        // vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
-        // int ans=byMemo(n,k,target,dp);
 
-        int ans=byTabu(n,k,target);
-        return ans;
+        return dp[n][target];
+    }
+
+    int bySO(int &n,int &k,int &target){
+        vector<int>prev(target+1,0);
+        vector<int>curr(target+1,0);
+        
+        prev[0]=1;
+
+        for (int dices = 1; dices <= n; dices++) {
+            
+            for (int tar = 0; tar <= target; tar++) {
+                int ans = 0;
+                for (int i = 1; i <= k; i++) {
+                    if (tar - i >= 0)
+                        ans = (ans + prev[tar - i]) % mod;
+                }
+                curr[tar] = ans;
+            }
+            prev=curr;
+        }
+
+        return prev[target];
+
+    }
+
+    int numRollsToTarget(int n, int k, int target) {
+        // return byRec(n,k,target);
+
+        // vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
+        // return byMem(n,k,target,dp);
+
+        // return byTabu(n, k, target);
+
+        return bySO(n,k,target);
     }
 };
 
 //VARIENT 2
+class Solution {
+public:
+  
   int byRecursion2(int &n,int &k,int &target,int diceUsed,int currSum){
         if(diceUsed==n && currSum==target){
             return 1;
@@ -105,7 +137,7 @@ public:
         dp[n][target]=1;
 
         for(int diceUsed=n-1;diceUsed>=0;diceUsed--){
-            for(int currSum=target;currSum>=0;currSum--){
+            for(int currSum=target-1;currSum>=0;currSum--){
                 int ans=0;
                 for(int face=1;face<=k;face++){
                     if(currSum+face<=target)
@@ -125,7 +157,7 @@ public:
         next[target]=1;
 
         for(int diceUsed=n-1;diceUsed>=0;diceUsed--){
-            for(int currSum=target;currSum>=0;currSum--){
+            for(int currSum=target-1;currSum>=0;currSum--){
                 int ans=0;
                 for(int face=1;face<=k;face++){
                     if(currSum+face<=target)
@@ -156,5 +188,92 @@ public:
         int ans=byTabu2SO(n,k,target);
 
         return ans;
+    }
+};
+
+// OWN VARIENT
+class Solution {
+public:
+    int mod=1000000007;
+    int byRec(int dices,int &faces,int &target,int sum){
+        if(sum>target) return 0;
+        if(dices==0 && sum<target) return 0;
+        if(dices==0 && sum==target) return 1;
+
+        int ans=0;
+        for(int i=1;i<=faces;i++){
+            ans=(ans+byRec(dices-1,faces,target,sum+i))%mod;
+        }
+
+        return ans;
+    }
+
+    int byMem(int dices,int &faces,int &target,int sum, vector<vector<int>>&dp){
+        if(sum>target) return 0;
+        if(dices==0 && sum<target) return 0;
+        if(dices==0 && sum==target) return 1;
+
+        if(dp[dices][sum]!=-1) return dp[dices][sum];
+
+        int ans=0;
+        for(int i=1;i<=faces;i++){
+            ans=(ans+byMem(dices-1,faces,target,sum+i,dp))%mod;
+        }
+        return dp[dices][sum]=ans;
+    }
+
+    int byTabu(int n,int &faces,int &target){
+        vector<vector<int>>dp(n+1,vector<int>(target+1,0));
+
+        dp[0][target]=1;
+
+        for(int dices=0;dices<=n;dices++){
+            for(int sum=target-1;sum>=0;sum--){
+                if(dices==0) continue;
+                int ans=0;
+                for(int i=1;i<=faces;i++){
+                    if(sum+i <= target)
+                    ans=(ans+dp[dices-1][sum+i])%mod;
+                }
+                dp[dices][sum]=ans;
+            }
+        }
+
+        return dp[n][0];
+    }
+
+int bySO(int n, int &faces, int &target) {
+    vector<int> prev(target + 1, 0);
+
+
+    prev[target] = 1;
+
+    for (int dices = 1; dices <= n; dices++) {
+        vector<int> curr(target + 1, 0); 
+        
+        for (int sum = target - 1; sum >= 0; sum--) {
+            int ans = 0;
+            for (int i = 1; i <= faces; i++) {
+                if (sum + i <= target)
+                    ans = (ans + prev[sum + i]) % mod;
+            }
+            curr[sum] = ans;
+        }
+        
+        prev = curr;  // Update prev with the values of curr
+    }
+
+    return prev[0];
+}
+
+    int numRollsToTarget(int n, int k, int target) {
+        // return byRec(n,k,target,0);
+
+        // vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
+        // return byMem(n,k,target,0,dp);
+
+        // return byTabu(n,k,target);
+
+        return bySO(n,k,target);
     }
 };
