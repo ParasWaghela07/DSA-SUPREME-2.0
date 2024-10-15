@@ -96,7 +96,7 @@ for(int i=0;i<n;i++){
 }
 
 else{
-    cout<<endl<<"OKAY,IF YOU WANNA KNOW , THEN YOU CAN REACH ME ANYTIME !...\n";
+    cout<<endl<<"OKAY,IF YOU WANNA KNOW THEN YOU CAN REACH ME ANYTIME !...\n";
 }
 
 }
