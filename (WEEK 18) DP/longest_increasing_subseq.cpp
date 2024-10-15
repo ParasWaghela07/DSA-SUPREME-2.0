@@ -2,6 +2,125 @@
  --- MAX SUBSEQ HAVIND ADJACENT DIFF EQUAL TO 1 / EQUAL TO K , just change nums[index]>nums[prev] --> abs(nums[index]-nums[prev]==k)
 class Solution {
 public:
+---> IMP -->  WHY PREV IS TAKEN AS INDEX ? TO FORM PROPER DP ARRAY
+
+class Solution {
+public:
+    int byRec(vector<int>&nums,int prev,int index){
+        if(index>=nums.size()) return 0;
+
+        int include=0;
+        if(prev==-1 || nums[index]>nums[prev]){
+            include=1+byRec(nums,index,index+1);
+        }
+        int exclude=byRec(nums,prev,index+1);
+
+        return max(include,exclude);
+    }
+
+    int byMem(vector<int>&nums,int index,int prev,vector<vector<int>>&dp){
+        if(index>=nums.size()) return 0;
+        if(dp[index][prev+1]!=-1) return dp[index][prev+1];
+
+        int include=0;
+        if(prev==-1 || nums[index]>nums[prev]){
+            include=1+byMem(nums,index+1,index,dp);
+        }
+        int exclude=byMem(nums,index+1,prev,dp);
+
+        return dp[index][prev+1]=max(include,exclude);
+    }
+
+    int byTabu(vector<int>&nums){
+        vector<vector<int>>dp(nums.size()+1,vector<int>(nums.size()+1,0));
+
+        for(int index=nums.size()-1;index>=0;index--){
+            for(int prev=nums.size()-1;prev>=-1;prev--){
+
+                int include=0;
+                if(prev==-1 || nums[index]>nums[prev]){
+                    include=1+dp[index+1][index+1];
+                }
+                int exclude=dp[index+1][prev+1];
+
+                dp[index][prev+1]=max(include,exclude);
+            }
+        }
+
+        return dp[0][0];
+    }
+
+    int bySO(vector<int>&nums){
+        vector<int>curr(nums.size()+1,0);
+        vector<int>next(nums.size()+1,0);
+
+        for(int index=nums.size()-1;index>=0;index--){
+            for(int prev=nums.size()-1;prev>=-1;prev--){
+
+                int include=0;
+                if(prev==-1 || nums[index]>nums[prev]){
+                    include=1+next[index+1];
+                }
+                int exclude=next[prev+1];
+
+                curr[prev+1]=max(include,exclude);
+            }
+            next=curr;
+        }
+
+        return next[0];
+    }
+
+    int bs(vector<int>&ans,int &target){
+        int s=0;
+        int e=ans.size();
+        int index=-1;
+
+        while(s<=e){
+            int mid=s+(e-s)/2;
+            if(ans[mid]==target) return mid;
+            else if(ans[mid]<target){
+                s=mid+1;
+            }
+            else{
+                index=mid;
+                e=mid-1;
+            }
+        }
+
+        return index;
+    }
+
+    int byBS(vector<int>&nums){
+        vector<int>ans;
+        for(int i=0;i<nums.size();i++){
+            if(ans.size()==0 || ans.back()<nums[i]){
+                ans.push_back(nums[i]);
+            }
+            else{
+                int index=bs(ans,nums[i]);
+                ans[index]=nums[i];
+            }
+        }
+
+        return ans.size();
+    }
+
+    int lengthOfLIS(vector<int>& nums) {
+        // return byRec(nums,-1,0);
+
+        // vector<vector<int>>dp(nums.size()+1,vector<int>(nums.size()+1,-1));
+        // return byMem(nums,-1,0,dp);
+
+        // return byTabu(nums);
+
+        // return bySO(nums);
+
+        return byBS(nums);
+    }
+};
+
+
     int byRec(vector<int>&nums,int index,int prev){
         if(index>=nums.size()){
             return 0;

@@ -40,43 +40,78 @@ public:
         return dp[i][day]=ans;
     }
 
-    int lakshayB(vector<int>&days,vector<int>&costs,int i,vector<int>&dp){
-        if(i>=days.size()){
-            return 0;
-        }
-        if(dp[i]!=-1){
-            return dp[i];
-        }
-        //1 day
-        int cost1=costs[0]+lakshayB(days,costs,i+1,dp);
+    class Solution {
+public:
+    int byRec(vector<int>&days,vector<int>&costs,int index){
+        if(index>=days.size()) return 0;
 
-        //7 day
-        int passEnd=days[i]+6;
-        int j=i;
-        while(j<days.size() && days[j]<=passEnd){
-            j++;
-        }
-        int cost7=costs[1]+lakshayB(days,costs,j,dp);
+        int op1=costs[0]+byRec(days,costs,index+1);
 
-        //30 day
-        passEnd=days[i]+29;
-        j=i;
-        while(j<days.size() && days[j]<=passEnd){
-            j++;
-        }
-        int cost30=costs[2]+lakshayB(days,costs,j,dp);
+        int validity=days[index]+6;
+        int j=index;
+        while(j<days.size() && days[j]<=validity) j++;
 
-        return dp[i]=min(cost1,min(cost7,cost30));
+        int op2=costs[1]+byRec(days,costs,j);
+
+        validity=days[index]+29;
+        j=index;
+        while(j<days.size() && days[j]<=validity) j++;
+
+        int op3=costs[2]+byRec(days,costs,j);
+
+        return min(min(op1,op2),op3);
+    }
+
+    int byMem(vector<int>&days,vector<int>&costs,int index,vector<int>&dp){
+        if(index>=days.size()) return 0;
+
+        if(dp[index]!=-1) return dp[index];
+
+        int op1=costs[0]+byMem(days,costs,index+1,dp);
+
+        int validity=days[index]+6;
+        int j=index;
+        while(j<days.size() && days[j]<=validity) j++;
+
+        int op2=costs[1]+byMem(days,costs,j,dp);
+
+        validity=days[index]+29;
+        j=index;
+        while(j<days.size() && days[j]<=validity) j++;
+
+        int op3=costs[2]+byMem(days,costs,j,dp);
+
+        return dp[index]=min(min(op1,op2),op3);
+    }
+
+    int byTabu(vector<int>&days,vector<int>&costs){
+        vector<int>dp(days.size()+1,0);
+        for(int index=days.size()-1;index>=0;index--){
+            int op1=costs[0]+dp[index+1];
+
+            int validity=days[index]+6;
+            int j=index;
+            while(j<days.size() && days[j]<=validity) j++;
+
+            int op2=costs[1]+dp[j];
+
+            validity=days[index]+29;
+            j=index;
+            while(j<days.size() && days[j]<=validity) j++;
+
+            int op3=costs[2]+dp[j];
+
+            dp[index]=min(min(op1,op2),op3);
+        }
+
+        return dp[0];
     }
     int mincostTickets(vector<int>& days, vector<int>& costs) {
-       int i=0;
-       int day=0;
-    //    int ans=lakshayB(days,costs,i);
-       vector<vector<int>>dp(days.size(),vector<int>(400,-1));
-    // vector<int>dp(days.size()+1,-1);
-    //    int ans=lakshayB(days,costs,i,dp);
-       int ans=byMemo(days,costs,i,day,dp);
-    //    int ans=byRecursion(days,costs,i,day);
-       return ans;
+        // return byRec(days,costs,0);
+
+        // vector<int>dp(days.size()+1,-1);
+        // return byMem(days,costs,0,dp);
+
+        return byTabu(days,costs);
     }
 };
