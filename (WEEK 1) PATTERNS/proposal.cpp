@@ -7,7 +7,8 @@ int main(){
     cin>>sec;
 
     if(sec==1){
-        cout<<"Select Any Number between 3 - 10 :-"<<endl;
+        cout<<"Select Any Number between 3 - 5 (Mobile) :-"<<endl;
+        cout<<"Select Any Number between 3 - 10 (PC) :-"<<endl;
     cin>>n;
 
 cout<<endl<<endl;
