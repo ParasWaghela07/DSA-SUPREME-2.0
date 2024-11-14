@@ -20,7 +20,7 @@ class Graph{
     vector<int>dist(n,INT_MAX);
     dist[src-'A']=0;
 
-    for(int i=0;i<n;i++){
+    for(int i=0;i<n-1;i++){
         for(auto a:adjList){
             for(auto b:a.second){
                 char u=a.first;
@@ -63,6 +63,8 @@ class Graph{
 
 int main(){
     Graph g;
+        //TRY ADDING NODES IN BETWEEN WHICH IS NOT ENCOUNTERED YET SO DUE TO ITS INT_MAX IT WILL BE SKIPPED AND PATH THRU THAT NODE WILL BE UNCHECKED AND I WILL LEAD TO MORE RELAXATION STEPS
+        
     // g.addegde('A','B',5,1);
     // g.addegde('B','D',2,1);
     // g.addegde('B','C',1,1);
@@ -71,14 +73,26 @@ int main(){
     // g.addegde('F','E',-3,1);
     // g.addegde('C','E',1,1);
 
-    g.addegde('A','B',1,1);
-    g.addegde('A','D',1,1);
-    g.addegde('B','C',2,1);
-    g.addegde('B','D',1,1);
-    g.addegde('D','A',4,1);
-    g.addegde('D','C',3,1);
+    // g.addegde('A','B',1,1);
+    // g.addegde('A','D',1,1);
+    // g.addegde('B','C',2,1);
+    // g.addegde('B','D',1,1);
+    // g.addegde('D','A',4,1);
+    // g.addegde('D','C',3,1);
 
-    g.bellmonford(4,'A');
+    // g.addegde('A', 'B', 4, 1);
+    // g.addegde('A', 'C', 5, 1);
+    // g.addegde('B', 'C', -2, 1);
+    // g.addegde('B', 'D', 6, 1);
+    // g.addegde('C', 'D', 3, 1);
+    // g.addegde('D', 'E', 2, 1);
+    // g.addegde('E', 'B', -8, 1);
+
+
+
+
+
+    g.bellmonford(5,'A');
 
 }
 

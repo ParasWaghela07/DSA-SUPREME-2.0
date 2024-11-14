@@ -1,85 +1,97 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+class graph{
+    public:
+    unordered_map<int,vector<pair<int,int>>>adjList;
 
-void printMST(vector<int>&parent, vector<vector<pair<int, int>>>& adj)
-{
-    cout << "Edge \tWeight\n";
-    for (int i = 1; i < parent.size(); i++){
-        cout << parent[i] << " - " << i << " \t";
-             for(auto it:adj[i]){
-                if(it.first==parent[i]){
-                    cout<<it.second<< " \n";
-                    break;
+    void addEdge(int u,int v,int wt,int dir){
+        if(dir==1){
+            adjList[u].push_back({v,wt});
+        }
+        else{
+            adjList[u].push_back({v,wt});
+            adjList[v].push_back({u,wt});
+        }
+    }
+
+    int getMin(vector<int>&key,vector<bool>&vis){
+        int mini=INT_MAX;
+        int element=-1;
+
+        for(int i=0;i<key.size();i++){
+            if(!vis[i] && key[i]<mini){
+                mini=key[i];
+                element=i;
+            }
+        }
+
+        return element;
+    }
+
+    int primsMst(int n){
+        vector<int>key(n,INT_MAX);
+        vector<bool>visited(n,false);
+        vector<int>parent(n,-1);
+
+        key[0]=0;
+
+        while(1){
+            int mini=getMin(key,visited);
+            if(mini==-1) break;
+
+            visited[mini]=true;
+
+            for(auto it:adjList[mini]){
+                int v=it.first;
+                int wt=it.second;
+
+                if(!visited[v] && wt < key[v]){
+                    key[v]=wt;
+                    parent[v]=mini;
                 }
-             }
-    }
-}
 
-int minVal(vector<int>& key, vector<bool>& mst) {
-    int mini = INT_MAX;
-    int index = -1;
+            }
 
-    for(int i = 0; i < key.size(); i++) {
-        if(!mst[i] && key[i] < mini) {
-            mini = key[i];
-            index = i;
         }
-    }
 
-    return index;
-}
+        int sum=0;
+        for(int i=0;i<n;i++){
+            if(parent[i]==-1) continue;
 
-int spanningTree(int V, vector<vector<pair<int, int>>>& adj) {
-    vector<int> key(V, INT_MAX);
-    vector<bool> mst(V, false);
-    vector<int> parent(V, -1);
+            for(auto it:adjList[i]){
+                if(it.first==parent[i]){
+                    sum+=it.second;
 
-    key[0] = 0;
-
-    while(true) {
-        int u = minVal(key, mst);
-
-        if(u == -1) break;
-
-        mst[u] = true;
-
-        for(auto& it : adj[u]) {
-            int v = it.first;
-            int w = it.second;
-
-            if(!mst[v] && w < key[v]) {
-                key[v] = w;
-                parent[v] = u;
+                    cout<<i<<" - "<<it.first<<" : "<<it.second<<endl;
+                }
             }
         }
+
+        return sum;
     }
-    int sum = 0;
-    for(int u = 0; u < V; u++) {
-        if(parent[u] == -1) continue;
+};
 
-        for(auto& it : adj[u]) {
-            if(parent[u] == it.first) {
-                sum += it.second;
-            }
-        }
-    }
-    printMST(parent, adj);
-    return sum;
-}
+int main(){
+    graph g;
+    // g.addEdge(1,0,5,0);
+    // g.addEdge(1,2,2,0);
+    // g.addEdge(2,0,3,0);
+    // g.addEdge(2,3,1,0);
+    // g.addEdge(2,4,4,0);
+    // g.addEdge(3,4,5,0);
 
-int main() {
-    vector<vector<pair<int, int>>> g = {
-        {{1, 2}, {3, 6}},
-        {{0, 2}, {2, 3}, {3, 8}, {4, 5}},
-        {{1, 3}, {4, 7}},
-        {{0, 6}, {1, 8}, {4, 9}},
-        {{1, 5}, {2, 7}, {3, 9}}
-    };
+    g.addEdge(0,1,2,0);
+    g.addEdge(0,3,6,0);
+    g.addEdge(1,2,3,0);
+    g.addEdge(1,3,8,0);
+    g.addEdge(1,4,5,0);
+    g.addEdge(2,4,7,0);
+    g.addEdge(3,4,9,0);
 
-    int V = g.size();
-    int ans = spanningTree(V, g);
 
-    cout << "MINIMUM COST :-" << ans << endl;
-    return 0;
+    int n=5;
+
+    int MinMstCost=g.primsMst(n);
+    cout<<"MINIMUM COST : " <<MinMstCost<<endl;
 }
