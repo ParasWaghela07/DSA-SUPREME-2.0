@@ -1,5 +1,59 @@
 class Solution {
 public:
+
+
+    ---OWN----
+    string minWindow(string s, string t) {
+        unordered_map<char,int>mp;
+        for(auto it:t)mp[it]++;
+
+        int count=t.size();
+
+        int i=0;
+        int j=0;
+
+        int ansi=-1;
+        int ansj=-1;
+
+        while(j<s.size()){
+            char ch=s[j];
+            if(mp.find(ch)!=mp.end()){
+                mp[ch]--;
+                if(mp[ch]>=0){
+                    count--;
+                }
+            }
+
+            while(i<=j && count==0){
+                cout<<i<<","<<j<<endl;
+                if(ansi==-1 && ansj==-1) {
+                    ansi=i;
+                    ansj=j;
+                }
+                else if(j-i < ansj-ansi){
+                    ansi=i;
+                    ansj=j;
+                }
+
+                char c=s[i];
+                if(mp.find(c)!=mp.end()){
+                    if(mp[c]==0)count++;
+                    mp[c]++;
+                }
+                i++;
+            }
+            j++;
+        }
+
+        if(ansi==-1 && ansj==-1) return "";
+
+        return s.substr(ansi,ansj-ansi+1);
+    }
+};
+
+
+class Solution {
+public:
     string minWindow(string s, string t) {
         int slen=s.size();
         int tlen=t.size();
