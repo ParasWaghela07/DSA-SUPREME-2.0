@@ -28,23 +28,36 @@ int main(){
       sort(Xdist.begin(),Xdist.end());
       sort(Ydist.begin(),Ydist.end());
 
-      vector<int>Xdiff;
-      for(int i=1;i<Xdist.size();i++){
-        Xdiff.push_back(Xdist[i]-Xdist[i-1]-1);
+      // vector<int>Xdiff;
+      // for(int i=1;i<Xdist.size();i++){
+      //   Xdiff.push_back(Xdist[i]-Xdist[i-1]-1);
+      // }
+
+      // vector<int>Ydiff;
+      // for(int i=1;i<Ydist.size();i++){
+      //   Ydiff.push_back(Ydist[i]-Ydist[i-1]-1);
+      // }
+
+      // int ans=INT_MIN;
+      // for(int i=0;i<Xdiff.size();i++){
+      //   for(int j=0;j<Ydiff.size();j++){
+      //       ans=max(ans,Xdiff[i]*Ydiff[j]);
+      //   }
+      // }
+
+      int ans=0;
+      int maxWidth=0;
+      int maxHeight=0;
+
+      for(int i=0;i<Xdist.size()-1;i++){
+        maxWidth=max(maxWidth,Xdist[i+1]-Xdist[i]-1);
       }
 
-      vector<int>Ydiff;
-      for(int i=1;i<Ydist.size();i++){
-        Ydiff.push_back(Ydist[i]-Ydist[i-1]-1);
+      for(int i=0;i<Ydist.size()-1;i++){
+        maxHeight=max(maxHeight,Ydist[i+1]-Ydist[i]-1);
       }
 
-      int ans=INT_MIN;
-      for(int i=0;i<Xdiff.size();i++){
-        for(int j=0;j<Ydiff.size();j++){
-            ans=max(ans,Xdiff[i]*Ydiff[j]);
-        }
-      }
-
+      ans=maxWidth*maxHeight;
       cout<<"Ans :- "<<ans<<endl;
 
 }
