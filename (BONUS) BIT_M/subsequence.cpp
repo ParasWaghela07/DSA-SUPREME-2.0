@@ -15,6 +15,6 @@ int main(){
                 temp+=s[i];
             }
         }
-        cout<<temp<<endl;
+        cout<<"-> "<<temp<<endl;
     }
 }

@@ -25,9 +25,9 @@ int main()
     int n = 5;
     vector<int> ans = nextSmaller(arr, n);
 
-    for (auto i : ans)
+    for (int i=ans.size()-1;i>=0;i--)
     {
-        cout << i << " ";
+        cout << ans[i] << " ";
     }
     cout << endl;
 
