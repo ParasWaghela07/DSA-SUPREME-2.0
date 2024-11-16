@@ -1,5 +1,41 @@
 class Solution {
 public:
+unordered_map<char, string> mp = {
+    {'2', "abc"},
+    {'3', "def"},
+    {'4', "ghi"},
+    {'5', "jkl"},
+    {'6', "mno"},
+    {'7', "pqrs"},
+    {'8', "tuv"},
+    {'9', "wxyz"}
+};
+    void combi(string &digits,int index,vector<string>&ans,string &s){
+        if(index>=digits.size()){
+            if(s.size()>0) ans.push_back(s);
+            return;
+        }
+
+        string currString=mp[digits[index]];
+        for(int i=0;i<currString.size();i++){
+            char ch=currString[i];
+            s.push_back(ch);
+            combi(digits,index+1,ans,s);
+            s.pop_back();
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        vector<string>ans;
+        string s;
+        combi(digits,0,ans,s);
+
+        return ans;
+    }
+};
+
+
+class Solution {
+public:
     void solve(int index,string &op,vector<string>&mp,vector<string>&ans,string &digits){
         if(index>=digits.size()){
             if(op.size()>0)
