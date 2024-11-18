@@ -52,6 +52,35 @@ public:
     }
 };
 
+    int intersectPoint(Node* head1, Node* head2)
+    {
+        Node* a=head1;
+        Node* b=head2;
+        
+        while(a && b){
+            a=a->next;
+            b=b->next;
+        }
+        
+        if(!a) a=head2;
+        if(!b) b=head1;
+        
+        while(a && b){
+            a=a->next;
+            b=b->next;
+        }
+        
+        if(!a)a=head2;
+        if(!b)b=head1;
+        
+        while(a!=b){
+            a=a->next;
+            b=b->next;
+        }
+        
+        return a->data;
+    }
+
 //////////////// O(M+N)
 /**
  * Definition for singly-linked list.
