@@ -26,8 +26,9 @@ int getBinary2(int n){
 
     return ans;
 }
+
 int main(){
-    int dnum=17;
+    int dnum=10;
     int bnum=getBinary2(dnum);
 
     cout<<"Decimal number :-"<<dnum<<endl;

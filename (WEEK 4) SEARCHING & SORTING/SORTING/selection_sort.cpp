@@ -1,21 +1,25 @@
 #include<bits/stdc++.h>
 using namespace std;
-
+//TIME :- O(N^2) // SORTING
+//SPACE :- O(1)
 int main(){
-    int arr[]={55,4,33,2,11};
-    int n=5;
+    vector<int>v={3,1,5,7,3,2,0};
 
-    for(int i=0;i<n-1;i++){
-        int mini=i;
-        for(int j=i+1;j<n;j++){
-            if(arr[j]<arr[mini]){
-                mini=j;
+    for(int i=0;i<v.size()-1;i++){
+        int mini=v[i];
+        int index=i;
+
+        for(int j=i+1;j<v.size();j++){
+            if(v[j]<mini){
+                mini=v[j];
+                index=j;
             }
         }
-        swap(arr[i],arr[mini]);
+
+        swap(v[i],v[index]);
     }
 
-    for(int i=0;i<n;i++){
-        cout<<arr[i]<<" ";
+    for(auto it:v){
+        cout<<it<<" ";
     }
 }
