@@ -26,7 +26,55 @@
                                 NULL
                 
 
-
+class Solution {
+  public:
+    Node* merge(Node*h1,Node*h2){
+        Node*dummy=new Node(-1);
+        Node*x=dummy;
+        
+        while(h1 && h2){
+            if(h1->data <= h2->data){
+                x->bottom=h1;
+                x=h1;
+                h1=h1->bottom;
+            }
+            else{
+                x->bottom=h2;
+                x=h2;
+                h2=h2->bottom;
+            }
+        }
+        
+        while(h1){
+            x->bottom=h1;
+            x=h1;
+            h1=h1->bottom;
+        }
+        
+        while(h2){
+                 x->bottom=h2;
+                x=h2;
+                h2=h2->bottom;
+        }
+        
+        return dummy->bottom;
+    }
+    // Function which returns the  root of the flattened linked list.
+    Node *flatten(Node *root) {
+        if(!root || !root->next) return root;
+        
+        Node*h1=root;
+        Node*h2=root->next;
+        
+        while(h1 && h2){
+            Node* merged=merge(h1,h2);
+            h1=merged;
+            h2=h2->next;
+        }
+        
+        return root;
+    }
+};
 
 Node* merge(Node* a, Node* b){
         if(a==NULL){

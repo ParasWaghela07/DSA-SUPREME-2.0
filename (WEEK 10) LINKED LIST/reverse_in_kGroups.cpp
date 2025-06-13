@@ -10,6 +10,60 @@
  */
 class Solution {
 public:
+    void rev(ListNode* &head){
+        ListNode*prev=NULL;
+        ListNode*curr=head;
+        while(curr){
+            ListNode*nxt=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nxt;
+        }
+        head=prev;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if(k==1) return head;
+
+        ListNode*x=head;
+        ListNode*dummy=new ListNode(-1);
+        ListNode*prevTail=NULL;
+
+        while(x){
+            ListNode*currhead=x;
+            ListNode*tail=currhead;
+
+            for(int i=0;i<k-1 && x!=NULL;i++){
+                x=x->next;
+            }
+            if(!x) break;
+
+            ListNode*nxt=x->next;
+            x->next=NULL;
+            rev(currhead);
+            if(!dummy->next) dummy->next=currhead;
+
+            if(prevTail)prevTail->next=currhead;
+            tail->next=nxt;
+            prevTail=tail;
+            x=nxt;
+        }
+
+        return dummy->next;
+    }
+};
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
     int getlen(ListNode* head){
         ListNode* temp=head;
         int count=0;
