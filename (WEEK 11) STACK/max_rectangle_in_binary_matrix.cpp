@@ -117,7 +117,7 @@ vector<int> prevMinNum(vector<int>&heights){
         while(st.top()!=-1 && heights[st.top()]>=curr){
             st.pop();
         }
-        ans[i]=st.top();
+        ans[i]=st.top(); 
         st.push(i);
     }
     
