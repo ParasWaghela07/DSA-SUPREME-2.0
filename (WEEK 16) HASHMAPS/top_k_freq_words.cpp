@@ -34,6 +34,34 @@ class compare{
 };
 
 //MIN HEAP N+K SPACE
+class Solution {
+public:
+    class compare{
+        public:
+        bool operator()(auto&a,auto&b){
+            if(a.second==b.second) return a.first < b.first;
+            else return a.second > b.second;
+        }
+    };
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        unordered_map<string,int>mp;
+        priority_queue<pair<string,int>,vector<pair<string,int>>,compare>pq;
+
+        for(auto &it:words)mp[it]++;
+
+        for(auto &it:mp){
+            pq.push(it);
+
+            if(pq.size()>k) pq.pop();
+        }
+
+        vector<string>ans;
+        while(!pq.empty()) ans.push_back(pq.top().first),pq.pop();
+        reverse(ans.begin(),ans.end());
+
+        return ans;
+    }
+};
 
 class Solution {
 public:
